@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "40e9b31a7be61a25eb406f94e03a377ddd845ec303eb138d8de97f86c5094277"
+build_start_time: [1695271613, 360547065]
+build_end_time: [1695271613, 432798862]
+inputs:
+  "/Users/justinlisoway/Documents/GitHub/flutter_agc_mockup_1_f23/macos/Flutter/GeneratedPluginRegistrant.swift": !private [1695271601, 74203968]
+  "/Users/justinlisoway/Documents/GitHub/flutter_agc_mockup_1_f23/macos/Runner/AppDelegate.swift": !private [1695271136, 771168470]
+  "/Users/justinlisoway/Documents/GitHub/flutter_agc_mockup_1_f23/macos/Runner/MainFlutterWindow.swift": !private [1695271136, 773657321]
