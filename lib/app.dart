@@ -10,7 +10,6 @@ import 'pages/outcomes/outcomes_view.dart';
 import 'pages/page_not_found/page_not_found_view.dart';
 import 'pages/seeds/seeds_view.dart';
 import 'pages/signin/signin_view.dart';
-import 'pages/signup/signup_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -33,9 +32,21 @@ class MyApp extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Color.fromRGBO(81, 202, 149, 1.0),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: Colors.green,
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(38, 95,70, 1.0), // background (button) color
+                foregroundColor: Colors.white, // foreground (text) color
+              ),
+            ),
+            textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+          ),
+          // darkTheme: ThemeData.dark(),
+          // themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
@@ -64,8 +75,6 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SigninView.routeName:
                     return const SigninView();
-                  case SignupView.routeName:
-                    return const SignupView();
                   default:
                     return const PageNotFoundView();
                 }

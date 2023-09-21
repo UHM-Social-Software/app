@@ -24,15 +24,10 @@ class _SigninViewState extends State<SigninView> {
             const SizedBox(height: 40.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/images/vegetables.png', width: 100),
                 const SizedBox(height: 16.0),
                 Text(
-                  "Welcome to",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  "Agile Garden Club",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  "Welcome to ''Meet Your People''",
+                  style: TextStyle(fontFamily: 'Chancery'),
                 ),
               ],
             ),
@@ -40,43 +35,49 @@ class _SigninViewState extends State<SigninView> {
             // [Name]
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                filled: true,
+                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                hintText: '    email@hawaii.edu',
               ),
             ),
-            const SizedBox(height: 12.0),
+            const SizedBox(height: 20.0),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Forgot Password?'),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                filled: true,
+                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                hintText: '    UHM Password',
               ),
             ),
-            const SizedBox(height: 12.0),
-            ElevatedButton(
-                onPressed: () {
-                  // Eventually: pushReplacementNamed
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                child: const Text('Sign in')),
-            const SizedBox(height: 12.0),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Don't have an account? "),
-              TextButton(
-                child: const Text('Sign up'),
-                onPressed: () {
-                  // Eventually: pushReplacementNamed
-                  Navigator.pushNamed(context, '/signup');
-                },
-              )
-            ]),
+            const SizedBox(height: 40.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 1.0),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ))),
+                    onPressed: () {
+                      // Eventually: pushReplacementNamed
+                      Navigator.pushReplacementNamed(context, '/home');
+                    },
+                    child: const Text('Enter')),
+                const SizedBox(width: 1.0),
+              ],
+            ),
           ],
         ),
       ),

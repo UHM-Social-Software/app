@@ -17,19 +17,27 @@ class HomeView extends StatefulWidget {
   // need to be moved into the state widget.
   final Map pages = {
     0: {
-      'title': const Text('News'),
+      'title': const Text('Profile'),
       'body': const NewsBodyView(),
       'navItem': const BottomNavigationBarItem(
-        label: 'News',
-        icon: Icon(Icons.newspaper),
+        label: 'Profile',
+        icon: Icon(Icons.person_outline_rounded),
       ),
     },
     1: {
-      'title': const Text('Gardens'),
+      'title': const Text('Explore'),
       'body': const GardensBodyView(),
       'navItem': const BottomNavigationBarItem(
-        label: 'Gardens',
-        icon: Icon(Icons.yard_outlined),
+        label: 'Explore',
+        icon: Icon(Icons.search_rounded),
+      ),
+    },
+    2: {
+      'title': const Text('Messages'),
+      'body': const GardensBodyView(),
+      'navItem': const BottomNavigationBarItem(
+        label: 'Messages',
+        icon: Icon(Icons.message_outlined),
       ),
     },
   };
@@ -52,9 +60,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerView(),
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text(''),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -70,6 +77,7 @@ class _HomeViewState extends State<HomeView> {
         items: [
           widget.pages[0]['navItem'],
           widget.pages[1]['navItem'],
+          widget.pages[2]['navItem'],
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
