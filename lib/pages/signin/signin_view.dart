@@ -37,8 +37,13 @@ class _SigninViewState extends State<SigninView> {
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                border: OutlineInputBorder(
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
                 ),
                 filled: true,
                 fillColor: Color.fromRGBO(38, 95, 70, 1.0),
@@ -46,12 +51,17 @@ class _SigninViewState extends State<SigninView> {
                 hintText: '    email@hawaii.edu',
               ),
             ),
+
             const SizedBox(height: 20.0),
             TextField(
               controller: _passwordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
                 ),
                 filled: true,
                 fillColor: Color.fromRGBO(38, 95, 70, 1.0),

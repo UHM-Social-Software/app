@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../pages/sample_feature/sample_item.dart';
-import '../pages/class/class_page.dart';
+import '../pages/class_page.dart';
 
 /// Displays a list of Gardens.
 class ClassesView extends StatelessWidget {
@@ -35,7 +35,7 @@ class ClassesView extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ClassPage()),
+                      MaterialPageRoute(builder: (context) => ClassPage(title: 'ICS 691D',)),
                     );
                   },
                   child: Text('ICS 691D',
@@ -54,7 +54,10 @@ class ClassesView extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    // open messages
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ClassPage(title: 'ICS 690',)),
+                    );
                   },
                   child: Text('ICS 690',
                       style: TextStyle(
