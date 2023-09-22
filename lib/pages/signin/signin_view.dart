@@ -27,11 +27,12 @@ class _SigninViewState extends State<SigninView> {
                 const SizedBox(height: 16.0),
                 Text(
                   "Welcome to ''Meet Your People''",
+                  textScaleFactor: 2,
                   style: TextStyle(fontFamily: 'Chancery'),
                 ),
               ],
             ),
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 200.0),
             // [Name]
             TextField(
               controller: _emailController,

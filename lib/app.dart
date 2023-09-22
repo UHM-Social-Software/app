@@ -1,3 +1,7 @@
+import 'package:app/pages/home/views/explore_view.dart';
+import 'package:app/pages/home/views/messages_view.dart';
+import 'package:app/pages/home/views/profileView/pages/class/class_page.dart';
+import 'package:app/pages/home/views/profileView/profile_view.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/chapters/chapters_view.dart';
@@ -65,6 +69,14 @@ class MyApp extends StatelessWidget {
                     return const HelpView();
                   case HomeView.routeName:
                     return HomeView();
+                  case ProfileView.routeName:
+                    return ProfileView();
+                  case ExploreView.routeName:
+                    return ExploreView();
+                  case MessagesView.routeName:
+                    return MessagesView();
+                  case ClassPage.routeName:
+                    return ClassPage();
                   case MembersView.routeName:
                     return const MembersView();
                   case OutcomesView.routeName:

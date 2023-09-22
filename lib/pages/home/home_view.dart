@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../components/drawer_view.dart';
-import '../../pages/home/bodies/news_body_view.dart';
-import '../settings/settings_view.dart';
-import 'bodies/gardens_body_view.dart';
+import 'views/explore_view.dart';
+import 'views/messages_view.dart';
+import 'views/profileView/profile_view.dart';
 
 /// Top-level Layout for all of the "Home" related
 class HomeView extends StatefulWidget {
@@ -18,7 +17,7 @@ class HomeView extends StatefulWidget {
   final Map pages = {
     0: {
       'title': const Text('Profile'),
-      'body': const NewsBodyView(),
+      'body': ProfileView(),
       'navItem': const BottomNavigationBarItem(
         label: 'Profile',
         icon: Icon(Icons.person_outline_rounded),
@@ -26,7 +25,7 @@ class HomeView extends StatefulWidget {
     },
     1: {
       'title': const Text('Explore'),
-      'body': const GardensBodyView(),
+      'body': const ExploreView(),
       'navItem': const BottomNavigationBarItem(
         label: 'Explore',
         icon: Icon(Icons.search_rounded),
@@ -34,7 +33,7 @@ class HomeView extends StatefulWidget {
     },
     2: {
       'title': const Text('Messages'),
-      'body': const GardensBodyView(),
+      'body': const MessagesView(),
       'navItem': const BottomNavigationBarItem(
         label: 'Messages',
         icon: Icon(Icons.message_outlined),
@@ -60,20 +59,15 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ],
+      body: SafeArea(
+        minimum: EdgeInsets.all(12.0),
+        child: widget.pages[_selectedIndex]['body'],
       ),
-      body: widget.pages[_selectedIndex]['body'],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // needed when more than 3 items
+        backgroundColor: Colors.black, // <-- This works for fixed
+        selectedItemColor: Color.fromRGBO(81, 202, 149, 1.0),
+        unselectedItemColor: Colors.grey,
         items: [
           widget.pages[0]['navItem'],
           widget.pages[1]['navItem'],
