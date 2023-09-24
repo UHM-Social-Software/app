@@ -1,3 +1,4 @@
+import 'package:app/pages/home/views/settings_view.dart';
 import 'package:flutter/material.dart';
 
 import 'views/explore_view.dart';
@@ -39,6 +40,14 @@ class HomeView extends StatefulWidget {
         icon: Icon(Icons.message_outlined),
       ),
     },
+    3: {
+      'title': const Text('Settings'),
+      'body': const SettingsView(),
+      'navItem': const BottomNavigationBarItem(
+        label: 'Settings',
+        icon: Icon(Icons.settings),
+      ),
+    },
   };
 
   @override
@@ -72,6 +81,7 @@ class _HomeViewState extends State<HomeView> {
           widget.pages[0]['navItem'],
           widget.pages[1]['navItem'],
           widget.pages[2]['navItem'],
+          widget.pages[3]['navItem'],
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

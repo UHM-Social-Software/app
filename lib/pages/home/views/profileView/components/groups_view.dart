@@ -32,18 +32,23 @@ class GroupsView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GroupPage(title: 'Cooler Chess Club',)),
+                      MaterialPageRoute(
+                          builder: (context) => GroupPage(
+                                title: 'Cooler Chess Club',
+                              )),
                     );
                   },
                   child: Text('Cooler Chess Club',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
-              )
+              ),
             ],
           ),
         ],

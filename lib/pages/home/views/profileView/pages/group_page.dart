@@ -119,12 +119,13 @@ class GroupPage extends StatelessWidget {
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  child: ElevatedButton(
+                  child: MaterialButton(
                     onPressed: () {
                       // open messages
                     },
                     child: Text('Join / Request Invite',
                         style: TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.bold, fontSize: 26)),
                   ),
                 ),

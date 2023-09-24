@@ -1,7 +1,10 @@
 import 'package:app/pages/home/views/explore_view.dart';
 import 'package:app/pages/home/views/messages_view.dart';
 import 'package:app/pages/home/views/profileView/pages/class_page.dart';
+import 'package:app/pages/home/views/profileView/pages/create_group.dart';
+import 'package:app/pages/home/views/profileView/pages/edit_group.dart';
 import 'package:app/pages/home/views/profileView/pages/group_page.dart';
+import 'package:app/pages/home/views/profileView/pages/my_groups.dart';
 import 'package:app/pages/home/views/profileView/profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,8 @@ import 'pages/page_not_found/page_not_found_view.dart';
 import 'pages/seeds/seeds_view.dart';
 import 'pages/signin/signin_view.dart';
 import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
+import 'pages/home/views/settings_view.dart';
+
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -79,6 +83,14 @@ class MyApp extends StatelessWidget {
                     return ExploreView();
                   case MessagesView.routeName:
                     return MessagesView();
+                  case SettingsView.routeName:
+                    return SettingsView();
+                  case MyGroups.routeName:
+                    return MyGroups();
+                  case CreateGroup.routeName:
+                    return CreateGroup();
+                  case EditGroup.routeName:
+                    return EditGroup(title: '',);
                   case ClassPage.routeName:
                     return ClassPage(
                       title: '',
@@ -93,8 +105,6 @@ class MyApp extends StatelessWidget {
                     return const OutcomesView();
                   case SeedsView.routeName:
                     return const SeedsView();
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
                   case SigninView.routeName:
                     return const SigninView();
                   default:

@@ -43,183 +43,188 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 160.0,
-                    height: 160.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/default_profile.png'),
-                        fit: BoxFit.cover,
-                      ),
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 160.0,
+                  height: 160.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/default_profile.png'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 25.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 45,
-                        width: 175,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Text('Name',
+                ),
+              ],
+            ),
+            const SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 45,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Text('Name',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 25.0),
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 45,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          // open messages
+                        },
+                        child: Text('Message',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ),
-                    ],
-                  ),
-                  const SizedBox(width: 25.0),
-                  Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 45,
-                        width: 175,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // open messages
-                          },
-                          child: Text('Message',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      alignment: Alignment.topLeft,
+                      height: 60,
+                      width: 375,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        alignment: Alignment.topLeft,
-                        height: 60,
-                        width: 375,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Text(
-                            'This is a sample Bio. There will be a feature for each user to edit their own bio.',
+                      child: Text(
+                          'This is a sample Bio. There will be a feature for each user to edit their own bio.',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      alignment: Alignment.topLeft,
+                      height: 60,
+                      width: 375,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Text('Interests will be displayed here.',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 45,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          if (0 != _selectedIndex) {
+                            setState(() {
+                              _selectedIndex = 0;
+                            });
+                          }
+                        },
+                        child: Text('Classes',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        alignment: Alignment.topLeft,
-                        height: 60,
-                        width: 375,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Text('Interests will be displayed here.',
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 25.0),
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 45,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(38, 95, 70, 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          if (1 != _selectedIndex) {
+                            setState(() {
+                              _selectedIndex = 1;
+                            });
+                          }
+                        },
+                        child: Text('Groups',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 45,
-                        width: 175,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (0 != _selectedIndex) {
-                              setState(() {
-                                _selectedIndex = 0;
-                              });
-                            }
-                          },
-                          child: Text('Classes',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 25.0),
-                  Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 45,
-                        width: 175,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (1 != _selectedIndex) {
-                              setState(() {
-                                _selectedIndex = 1;
-                              });
-                            }
-                          },
-                          child: Text('Groups',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              Container(
-                height: 200,
-                alignment: Alignment.center,
-                child: widget.pages[_selectedIndex]['body'],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Container(
+              height: 200,
+              alignment: Alignment.center,
+              child: widget.pages[_selectedIndex]['body'],
+            ),
+          ],
+        ),
       ),
     );
   }

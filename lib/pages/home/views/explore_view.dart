@@ -18,6 +18,7 @@ class ExploreView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: TextField(
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
@@ -44,13 +45,13 @@ class ExploreView extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                height:180,
-                width:180,
+                height: 180,
+                width: 180,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -61,8 +62,10 @@ class ExploreView extends StatelessWidget {
                     );
                   },
                   child: Text('Cool Chess Club',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               ),
               SizedBox(width: 20.0),
@@ -74,7 +77,7 @@ class ExploreView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -85,8 +88,10 @@ class ExploreView extends StatelessWidget {
                     );
                   },
                   child: Text('Cooler Chess Club',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               )
             ],
@@ -97,25 +102,27 @@ class ExploreView extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                height:180,
-                width:180,
+                height: 180,
+                width: 180,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => GroupPage(
-                            title: 'Ballroom Dance',
-                          )),
+                                title: 'Ballroom Dance',
+                              )),
                     );
                   },
                   child: Text('Ballroom Dance',
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               ),
               SizedBox(width: 20.0),
@@ -127,19 +134,21 @@ class ExploreView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => GroupPage(
-                            title: 'Sailing',
-                          )),
+                                title: 'Sailing',
+                              )),
                     );
                   },
                   child: Text('Sailing',
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               )
             ],

@@ -31,16 +31,21 @@ class ClassesView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ClassPage(title: 'ICS 691D',)),
+                      MaterialPageRoute(
+                          builder: (context) => ClassPage(
+                                title: 'ICS 691D',
+                              )),
                     );
                   },
                   child: Text('ICS 691D',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               ),
               SizedBox(height: 10.0),
@@ -52,16 +57,21 @@ class ClassesView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: ElevatedButton(
+                child: MaterialButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ClassPage(title: 'ICS 690',)),
+                      MaterialPageRoute(
+                          builder: (context) => ClassPage(
+                                title: 'ICS 690',
+                              )),
                     );
                   },
                   child: Text('ICS 690',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
                 ),
               )
             ],
