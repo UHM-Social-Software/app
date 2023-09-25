@@ -24,59 +24,71 @@ class _SigninViewState extends State<SigninView> {
             const SizedBox(height: 40.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/images/vegetables.png', width: 100),
                 const SizedBox(height: 16.0),
                 Text(
-                  "Welcome to",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  "Agile Garden Club",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  "Welcome to ''Meet Your People''",
+                  textScaleFactor: 2,
+                  style: TextStyle(fontFamily: 'Chancery'),
                 ),
               ],
             ),
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 200.0),
             // [Name]
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                ),
+                filled: true,
+                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                hintText: '    email@hawaii.edu',
               ),
             ),
-            const SizedBox(height: 12.0),
+
+            const SizedBox(height: 20.0),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                ),
+                filled: true,
+                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                hintText: '    UHM Password',
               ),
-              obscureText: true,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Forgot Password?'),
-              ),
+            const SizedBox(height: 40.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 1.0),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ))),
+                    onPressed: () {
+                      // Eventually: pushReplacementNamed
+                      Navigator.pushReplacementNamed(context, '/home');
+                    },
+                    child: const Text('Enter')),
+                const SizedBox(width: 1.0),
+              ],
             ),
-            const SizedBox(height: 12.0),
-            ElevatedButton(
-                onPressed: () {
-                  // Eventually: pushReplacementNamed
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                child: const Text('Sign in')),
-            const SizedBox(height: 12.0),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Don't have an account? "),
-              TextButton(
-                child: const Text('Sign up'),
-                onPressed: () {
-                  // Eventually: pushReplacementNamed
-                  Navigator.pushNamed(context, '/signup');
-                },
-              )
-            ]),
           ],
         ),
       ),

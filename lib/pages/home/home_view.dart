@@ -1,9 +1,9 @@
+import 'package:app/pages/home/views/settings_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/drawer_view.dart';
-import '../../pages/home/bodies/news_body_view.dart';
-import '../settings/settings_view.dart';
-import 'bodies/gardens_body_view.dart';
+import 'views/explore_view.dart';
+import 'views/messages_view.dart';
+import 'views/profileView/profile_view.dart';
 
 /// Top-level Layout for all of the "Home" related
 class HomeView extends StatefulWidget {
@@ -17,19 +17,35 @@ class HomeView extends StatefulWidget {
   // need to be moved into the state widget.
   final Map pages = {
     0: {
-      'title': const Text('News'),
-      'body': const NewsBodyView(),
+      'title': const Text('Profile'),
+      'body': ProfileView(),
       'navItem': const BottomNavigationBarItem(
-        label: 'News',
-        icon: Icon(Icons.newspaper),
+        label: 'Profile',
+        icon: Icon(Icons.person_outline_rounded),
       ),
     },
     1: {
-      'title': const Text('Gardens'),
-      'body': const GardensBodyView(),
+      'title': const Text('Explore'),
+      'body': const ExploreView(),
       'navItem': const BottomNavigationBarItem(
-        label: 'Gardens',
-        icon: Icon(Icons.yard_outlined),
+        label: 'Explore',
+        icon: Icon(Icons.search_rounded),
+      ),
+    },
+    2: {
+      'title': const Text('Messages'),
+      'body': const MessagesView(),
+      'navItem': const BottomNavigationBarItem(
+        label: 'Messages',
+        icon: Icon(Icons.message_outlined),
+      ),
+    },
+    3: {
+      'title': const Text('Settings'),
+      'body': const SettingsView(),
+      'navItem': const BottomNavigationBarItem(
+        label: 'Settings',
+        icon: Icon(Icons.settings),
       ),
     },
   };
@@ -52,24 +68,20 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerView(),
-      appBar: AppBar(
-        title: const Text('Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-          ),
-        ],
+      body: SafeArea(
+        minimum: EdgeInsets.all(12.0),
+        child: widget.pages[_selectedIndex]['body'],
       ),
-      body: widget.pages[_selectedIndex]['body'],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // needed when more than 3 items
+        backgroundColor: Colors.black, // <-- This works for fixed
+        selectedItemColor: Color.fromRGBO(81, 202, 149, 1.0),
+        unselectedItemColor: Colors.grey,
         items: [
           widget.pages[0]['navItem'],
           widget.pages[1]['navItem'],
+          widget.pages[2]['navItem'],
+          widget.pages[3]['navItem'],
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
