@@ -1,8 +1,8 @@
-import 'package:app/pages/home/views/profileView/pages/create_group.dart';
-import 'package:app/pages/home/views/profileView/pages/my_groups.dart';
+import 'package:app/pages/home/views/settingsView/pages/create_group.dart';
+import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
 
-import '../../signin/signin_view.dart';
+import '../../../signin_view.dart';
 
 /// Displays a list of Gardens.
 class SettingsView extends StatelessWidget {

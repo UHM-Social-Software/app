@@ -1,4 +1,4 @@
-import 'package:app/pages/home/views/settings_view.dart';
+import 'package:app/pages/home/views/settingsView/settings_view.dart';
 import 'package:flutter/material.dart';
 
 import 'views/explore_view.dart';
