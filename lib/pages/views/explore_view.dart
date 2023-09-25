@@ -1,4 +1,4 @@
-import 'package:app/pages/home/views/profileView/pages/group_page.dart';
+import 'package:app/pages/views/profileView/pages/group_page.dart';
 import 'package:flutter/material.dart';
 
 

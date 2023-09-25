@@ -1,15 +1,16 @@
-import 'package:app/pages/home/views/explore_view.dart';
-import 'package:app/pages/home/views/messages_view.dart';
-import 'package:app/pages/home/views/profileView/pages/class_page.dart';
-import 'package:app/pages/home/views/profileView/pages/create_group.dart';
-import 'package:app/pages/home/views/profileView/pages/edit_group.dart';
-import 'package:app/pages/home/views/profileView/pages/group_page.dart';
-import 'package:app/pages/home/views/profileView/pages/my_groups.dart';
-import 'package:app/pages/home/views/profileView/profile_view.dart';
+
+import 'package:app/pages/views/explore_view.dart';
+import 'package:app/pages/views/messages_view.dart';
+import 'package:app/pages/views/profileView/pages/class_page.dart';
+import 'package:app/pages/views/profileView/pages/create_group.dart';
+import 'package:app/pages/views/profileView/pages/edit_group.dart';
+import 'package:app/pages/views/profileView/pages/group_page.dart';
+import 'package:app/pages/views/profileView/pages/my_groups.dart';
+import 'package:app/pages/views/profileView/profile_view.dart';
+import 'package:app/pages/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'pages/home/home_view.dart';
 import 'pages/signin/signin_view.dart';
-import 'pages/home/views/settings_view.dart';
 
 
 /// The Widget that configures your application.

@@ -1,7 +1,5 @@
-import 'package:app/pages/home/views/profileView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../signin/signin_view.dart';
 
 /// Displays a list of Gardens.
 class EditGroup extends StatelessWidget {
