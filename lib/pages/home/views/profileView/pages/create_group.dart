@@ -71,10 +71,10 @@ class CreateGroup extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninView()),
-                    );
+                    );*/
                   },
                   child: Text('Upload Club/Group Image',
                       style: TextStyle(
@@ -171,10 +171,10 @@ class CreateGroup extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninView()),
-                    );
+                    );*/
                   },
                   child: Text('Create',
                       style: TextStyle(

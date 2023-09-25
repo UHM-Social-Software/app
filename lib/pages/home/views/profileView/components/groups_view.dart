@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../pages/sample_feature/sample_item.dart';
 import '../pages/class_page.dart';
 import '../pages/group_page.dart';
 
@@ -8,11 +7,9 @@ import '../pages/group_page.dart';
 class GroupsView extends StatelessWidget {
   const GroupsView({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
   static const routeName = '/messages';
-  final List<SampleItem> items;
   final String title = 'messages';
 
   @override

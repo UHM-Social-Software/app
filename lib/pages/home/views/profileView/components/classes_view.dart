@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../pages/sample_feature/sample_item.dart';
 import '../pages/class_page.dart';
 
 /// Displays a list of Gardens.
 class ClassesView extends StatelessWidget {
   const ClassesView({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
   static const routeName = '/messages';
-  final List<SampleItem> items;
   final String title = 'messages';
 
   @override

@@ -1,17 +1,14 @@
 import 'package:app/pages/home/views/profileView/pages/group_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../pages/sample_feature/sample_item.dart';
 
 /// Displays a list of Gardens.
 class ExploreView extends StatelessWidget {
   const ExploreView({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
   static const routeName = '/ExploreView';
-  final List<SampleItem> items;
   final String title = 'ExploreView';
 
   @override

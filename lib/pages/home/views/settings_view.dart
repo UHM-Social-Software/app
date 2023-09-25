@@ -2,18 +2,15 @@ import 'package:app/pages/home/views/profileView/pages/create_group.dart';
 import 'package:app/pages/home/views/profileView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../pages/sample_feature/sample_item.dart';
 import '../../signin/signin_view.dart';
 
 /// Displays a list of Gardens.
 class SettingsView extends StatelessWidget {
   const SettingsView({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
   static const routeName = '/settings';
-  final List<SampleItem> items;
   final String title = 'settings';
 
   @override
@@ -62,10 +59,10 @@ class SettingsView extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninView()),
-                    );
+                    );*/
                   },
                   child: Text('Upload Profile Photo',
                       style: TextStyle(
@@ -123,10 +120,10 @@ class SettingsView extends StatelessWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.push(
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninView()),
-                    );
+                    );*/
                   },
                   child: Text('Add or Delete Interests',
                       style: TextStyle(
