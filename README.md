@@ -15,12 +15,9 @@ Here are screen shots that illustrate this mockup.
 Click on any screen shot to see it full-size.
 
 <p style="text-align: center">
-  <img src="./README-screenshots/screen-1.png" width="25%">
-&nbsp; &nbsp; 
-  <img src="./README-screenshots/screen-2.png" width="25%">
-&nbsp; &nbsp; 
-  <img src="./README-screenshots/screen-3.png" width="25%">
-
-  <img src="./README-screenshots/screen-4.png" width="25%">
-  <img src="./README-screenshots/screen-5.png" width="25%">
+  <img src="./README-screenshots/screenshot-1.png" width="25%">
+  <img src="./README-screenshots/screenshot-2.png" width="25%">
+  <img src="./README-screenshots/screenshot-3.png" width="25%">
+  <img src="./README-screenshots/screenshot-4.png" width="25%">
+  <img src="./README-screenshots/screenshot-5.png" width="25%">
 </p>
