@@ -1,6 +1,6 @@
-# AGC Mockup (Phase 1)
+# "Find Your People" App (Phase 1)
 
-This mockup is slightly modified from the Flutter Skeleton template app. Differences include:
+This mockup was modified from the Flutter Skeleton template app. Differences include:
 
 * Elimination of the src/ directory
 * Elimination of localization
@@ -8,19 +8,22 @@ This mockup is slightly modified from the Flutter Skeleton template app. Differe
   * deleted i10n.yml file
   * deleted locationization directory
 * Eliminated restoration
-* Addition of pages for various garden-related functions
+* Addition of pages for various app functions
 
-Here are screen shots that illustrate this mockup. We use the flutter_markdown package to provide information on what should appear in a page when we haven't gotten around to actually mocking up the contents.
+Here are screen shots that illustrate this mockup.
 
 Click on any screen shot to see it full-size.
 
 <p style="text-align: center">
-  <img src="./README-screenshots/screen-1.png" width="25%">
-&nbsp; &nbsp; 
-  <img src="./README-screenshots/screen-2.png" width="25%">
-&nbsp; &nbsp; 
-  <img src="./README-screenshots/screen-3.png" width="25%">
-
-  <img src="./README-screenshots/screen-4.png" width="25%">
-  <img src="./README-screenshots/screen-5.png" width="25%">
+  <img src="./README-screenshots/screenshot-1.png" width="25%">
+  <img src="./README-screenshots/screenshot-2.png" width="25%">
+  <img src="./README-screenshots/screenshot-3.png" width="25%">
+  <img src="./README-screenshots/screenshot-4.png" width="25%">
+  <img src="./README-screenshots/screenshot-5.png" width="25%">
+ <img src="./README-screenshots/screenshot-6.png" width="25%">
+ <img src="./README-screenshots/screenshot-7.png" width="25%">
+ <img src="./README-screenshots/screenshot-8.png" width="25%">
+ <img src="./README-screenshots/screenshot-9.png" width="25%">
+ <img src="./README-screenshots/screenshot-10.png" width="25%">
+ <img src="./README-screenshots/screenshot-11.png" width="25%">
 </p>
