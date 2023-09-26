@@ -1,3 +1,5 @@
+import 'package:app/pages/home/views/profileView/components/class_bar.dart';
+import 'package:app/pages/home/views/profileView/user_db.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/class_page.dart';
@@ -13,67 +15,21 @@ class ClassesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserData user = userDB.getUser(currentUserID);
+    List<String> classNames = user.classes;
+
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              SizedBox(height: 10.0),
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ClassPage(
-                                title: 'ICS 691D',
-                              )),
-                    );
-                  },
-                  child: Text('ICS 691D',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16)),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ClassPage(
-                                title: 'ICS 690',
-                              )),
-                    );
-                  },
-                  child: Text('ICS 690',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16)),
-                ),
-              )
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                ...classNames.map((className) => classBar(className: className))
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

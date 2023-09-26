@@ -1,4 +1,4 @@
-import 'package:app/data_model/user_db.dart';
+import 'package:app/pages/home/views/profileView/user_db.dart';
 
 /// The data associated with users.
 class ClassData {
@@ -73,9 +73,11 @@ class ClassDB {
   }
 
   List<ClassData> getClasses(UserData user) {
-    return _classes.where((classData) => classData.students.contains(user.name)).toList();
+    return _classes
+        .where((classData) => classData.students.contains(user.name))
+        .toList();
   }
-
-  /// The singleton instance providing access to all user data for clients.
-  ClassDB classDB = ClassDB();
 }
+
+/// The singleton instance providing access to all user data for clients.
+ClassDB classDB = ClassDB();

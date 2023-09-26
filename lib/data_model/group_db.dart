@@ -1,4 +1,3 @@
-
 /// The data associated with users.
 class GroupData {
   GroupData({
@@ -22,21 +21,19 @@ class GroupData {
 class GroupDB {
   final List<GroupData> _groups = [
     GroupData(
-      name: 'Chess Club',
-      description: 'We are a fun chess club!',
-      upcomingEvents: 'Oct 10th Round Robin Tournament',
-      imagePath: 'assets/images/user-001.jpg',
-      owner: 'Bob McDonald',
-      membership: ['Bob McDonald', 'Justin Lisoway', 'Donny Boy']
-    ),
+        name: 'Chess Club',
+        description: 'We are a fun chess club!',
+        upcomingEvents: 'Oct 10th Round Robin Tournament',
+        imagePath: 'assets/images/user-001.jpg',
+        owner: 'Bob McDonald',
+        membership: ['Bob McDonald', 'Justin Lisoway', 'Donny Boy']),
     GroupData(
         name: 'Sailing Group',
         description: 'We are a fun Sailing Group!',
         upcomingEvents: 'Oct 20th: Learn About Knots',
         imagePath: 'assets/images/user-001.jpg',
         owner: 'Donny Boy',
-        membership: ['Donny Boy', 'Justin Lisoway']
-    ),
+        membership: ['Donny Boy', 'Justin Lisoway']),
   ];
 
   GroupData getGroup(String groupName) {
@@ -44,9 +41,11 @@ class GroupDB {
   }
 
   List<GroupData> getGroups(GroupData group) {
-    return _groups.where((groupData) => (groupData.owner == group.owner)).toList();
+    return _groups
+        .where((groupData) => (groupData.owner == group.owner))
+        .toList();
   }
-
-  /// The singleton instance providing access to all user data for clients.
-  GroupDB groupDB = GroupDB();
 }
+
+/// The singleton instance providing access to all user data for clients.
+GroupDB groupDB = GroupDB();
