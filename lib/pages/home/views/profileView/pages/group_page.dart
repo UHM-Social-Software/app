@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../data_model/group_db.dart';
+
 /// Displays a list of Gardens.
 class GroupPage extends StatelessWidget {
   GroupPage({
     super.key,
-    required this.title,
+    required this.groupName,
   });
 
   static const routeName = '/group';
-  String title;
+  String groupName;
 
   @override
   Widget build(BuildContext context) {
+    GroupData group = groupDB.getGroup(groupName);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
@@ -30,7 +33,7 @@ class GroupPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/default_profile.png'),
+                      image: AssetImage(group.imagePath.toString()),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -51,7 +54,7 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(title,
+                      child: Text(group.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26)),
                     ),
@@ -75,7 +78,7 @@ class GroupPage extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
-                          'Club Description',
+                          group.description,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26)),
                     ),
@@ -98,7 +101,7 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text('Upcoming Events:',
+                      child: Text(group.upcomingEvents,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26)),
                     ),

@@ -1,4 +1,4 @@
-import 'package:app/pages/home/views/profileView/user_db.dart';
+import 'package:app/data_model/user_db.dart';
 
 /// The data associated with users.
 class ClassData {

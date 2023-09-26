@@ -1,5 +1,5 @@
 import 'package:app/pages/home/views/profileView/components/class_bar.dart';
-import 'package:app/pages/home/views/profileView/user_db.dart';
+import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/class_page.dart';
@@ -10,8 +10,7 @@ class ClassesView extends StatelessWidget {
     super.key,
   });
 
-  static const routeName = '/messages';
-  final String title = 'messages';
+  final String title = 'classesView';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class ClassesView extends StatelessWidget {
           children: [
             Column(
               children: [
-                ...classNames.map((className) => classBar(className: className))
+                ...classNames.map((className) => ClassBar(className: className))
               ],
             ),
           ],

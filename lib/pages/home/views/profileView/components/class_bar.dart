@@ -1,4 +1,4 @@
-import 'package:app/pages/home/views/profileView/user_db.dart';
+import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
 
 
@@ -6,8 +6,8 @@ import '../../../../../data_model/class_db.dart';
 import '../pages/class_page.dart';
 
 /// Displays a news item given its ID.
-class classBar extends StatelessWidget {
-  const classBar({
+class ClassBar extends StatelessWidget {
+  const ClassBar({
     super.key,
     required this.className,
   });
