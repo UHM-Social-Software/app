@@ -1,23 +1,25 @@
 import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../signin_view.dart';
+import '../../../../../data_model/group_db.dart';
 
 /// Displays a list of Gardens.
 class EditGroup extends StatelessWidget {
   EditGroup({
     super.key,
-    required this.title,
+    required this.groupName,
   });
 
   static const routeName = '/settings';
-  String title;
+  String groupName;
 
   @override
   Widget build(BuildContext context) {
+    List<String> memberList = groupDB.getMembers(groupName);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editing: ' + title),
+        title: Text('Editing: ' + groupName),
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
       ),
       body: Column(
@@ -137,10 +139,23 @@ class EditGroup extends StatelessWidget {
                       color: Color.fromRGBO(38, 95, 70, 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    child: Text(
-                        'Member List: ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'Member List:',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 26)),
+                          const SizedBox(height: 15.0),
+                          Text(
+                              memberList.toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20)),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

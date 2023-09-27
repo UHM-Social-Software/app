@@ -77,10 +77,13 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(
-                          group.description,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
+                      child: Column(
+                        children: [
+                          Text(group.description,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 22)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -101,9 +104,28 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(group.upcomingEvents,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.all(3),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Upcoming Events:',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 26)),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(group.upcomingEvents,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20)),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -129,7 +151,8 @@ class GroupPage extends StatelessWidget {
                     child: Text('Join / Request Invite',
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold, fontSize: 26)),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26)),
                   ),
                 ),
               ],

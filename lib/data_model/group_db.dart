@@ -44,14 +44,14 @@ class GroupDB {
     GroupData(
         name: 'Group 4',
         description: 'Group 4',
-        upcomingEvents: 'Group 4',
+        upcomingEvents: 'Cool stuff going on',
         imagePath: 'assets/images/default_profile.png',
-        owner: 'Donny Boy',
-        membership: ['Donny Boy']),
+        owner: 'Justin Lisoway',
+        membership: ['Justin Lisoway','Donny Boy']),
     GroupData(
         name: 'Group 5',
-        description: 'Group 4',
-        upcomingEvents: 'Group 4',
+        description: 'Group 5',
+        upcomingEvents: 'Very cool stuff going on',
         imagePath: 'assets/images/default_profile.png',
         owner: 'Donny Boy',
         membership: ['Donny Boy']),
@@ -67,10 +67,18 @@ class GroupDB {
     return groupNames;
   }
 
-  List<GroupData> getGroups(GroupData group) {
-    return _groups
-        .where((groupData) => (groupData.owner == group.owner))
-        .toList();
+  List<String> getGroupNamesFromList(List<GroupData> groups) {
+    List<String> groupNames = [];
+    groups.forEach((groupData) => groupNames.add(groupData.name));
+    return groupNames;
+  }
+
+  List<String> getMyGroupNames(String owner) {
+    return getGroupNamesFromList(_groups.where((groupData) => groupData.owner == owner).toList());
+  }
+
+  List<String> getMembers(String groupName){
+    return _groups.firstWhere((groupData) => groupData.name == groupName).membership;
   }
 }
 

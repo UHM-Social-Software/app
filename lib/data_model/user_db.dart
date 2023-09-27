@@ -38,7 +38,7 @@ class UserDB {
         'ICS 613'
       ],
       interests: ['swimming', 'ICS', 'finance'],
-      groups: ['UH Swim & Dive'],
+      groups: ['UH Swim & Dive', 'Group 4'],
     ),
     UserData(
       id: 'user-002',

@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               case CreateGroup.routeName:
                 return CreateGroup();
               case EditGroup.routeName:
-                return EditGroup(title: '',);
+                return EditGroup(groupName: '',);
               case ClassPage.routeName:
                 return ClassPage(
                   title: '',
