@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
                 return EditGroup(groupName: '',);
               case ClassPage.routeName:
                 return ClassPage(
-                  title: '',
+                  className: '',
                 );
               case GroupPage.routeName:
                 return GroupPage(

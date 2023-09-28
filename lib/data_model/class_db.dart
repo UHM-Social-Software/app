@@ -77,6 +77,10 @@ class ClassDB {
         .where((classData) => classData.students.contains(user.name))
         .toList();
   }
+
+  List<String> getStudents(String className){
+    return _classes.firstWhere((classData) => classData.name == className).students;
+  }
 }
 
 /// The singleton instance providing access to all user data for clients.

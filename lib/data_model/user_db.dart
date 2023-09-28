@@ -39,6 +39,7 @@ class UserDB {
       ],
       interests: ['swimming', 'ICS', 'finance'],
       groups: ['UH Swim & Dive', 'Group 4'],
+      imagePath: 'assets/images/default_profile.png',
     ),
     UserData(
       id: 'user-002',
@@ -64,6 +65,10 @@ class UserDB {
 
   UserData getUser(String userID) {
     return _users.firstWhere((userData) => userData.id == userID);
+  }
+
+  UserData getStudent(String studentName) {
+    return _users.firstWhere((userData) => userData.name == studentName);
   }
 
   List<UserData> getUsers(List<String> userIDs) {

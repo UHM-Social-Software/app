@@ -34,7 +34,7 @@ class ClassBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ClassPage(
-                      title: currentClass.name,
+                      className: currentClass.name,
                     )),
               );
             },
