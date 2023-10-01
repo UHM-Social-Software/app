@@ -1,5 +1,6 @@
 import 'package:app/pages/home/views/exploreView/explore_view.dart';
-import 'package:app/pages/home/views/messages_view.dart';
+import 'package:app/pages/home/views/messaging/messaging_screen.dart';
+import 'package:app/pages/home/views/messaging/messaging_service.dart';
 import 'package:app/pages/home/views/profileView/pages/class_page.dart';
 import 'package:app/pages/home/views/settingsView/pages/create_group.dart';
 import 'package:app/pages/home/views/settingsView/pages/edit_group.dart';
@@ -14,12 +15,15 @@ import 'pages/home/views/settingsView/settings_view.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
-  const MyApp({
+  final FirebaseMessagingService _firebaseMessagingService = FirebaseMessagingService();
+
+  MyApp({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    _firebaseMessagingService.initialize();
     // Glue the SettingsController to the MaterialApp.
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
@@ -57,8 +61,10 @@ class MyApp extends StatelessWidget {
                 return ProfileView();
               case ExploreView.routeName:
                 return ExploreView();
-              case MessagesView.routeName:
-                return MessagesView();
+              /*case MessagesView.routeName:
+                return MessagesView();*/
+              case MessagingScreen.routeName:
+                return MessagingScreen();
               case SettingsView.routeName:
                 return SettingsView();
               case MyGroups.routeName:

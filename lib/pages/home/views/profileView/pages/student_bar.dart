@@ -1,10 +1,6 @@
 import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
 
-
-import '../../../../../data_model/class_db.dart';
-import '../pages/class_page.dart';
-
 /// Displays a news item given its ID.
 class StudentBar extends StatelessWidget {
   const StudentBar({
