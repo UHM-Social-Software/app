@@ -39,7 +39,7 @@ class UserDB {
       ],
       interests: ['swimming', 'ICS', 'finance'],
       groups: ['group-001','group-002','group-003', 'group-004'],
-      imagePath: 'assets/images/default_profile.png',
+      imagePath: 'assets/images/user-001-profile.png',
     ),
     UserData(
       id: 'user-002',
