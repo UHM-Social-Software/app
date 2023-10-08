@@ -38,7 +38,7 @@ class UserDB {
         'ICS 613'
       ],
       interests: ['swimming', 'ICS', 'finance'],
-      groups: ['UH Swim & Dive', 'Group 4'],
+      groups: ['group-001','group-002','group-003', 'group-004'],
       imagePath: 'assets/images/default_profile.png',
     ),
     UserData(
@@ -48,7 +48,7 @@ class UserDB {
       bio: 'This is my bio',
       classes: ['ICS 491', 'ICS 314', 'ICS 311'],
       interests: ['ICS'],
-      groups: [],
+      groups: ['group-001','group-003'],
       imagePath: 'assets/images/default_profile.png',
     ),
     UserData(
@@ -58,7 +58,7 @@ class UserDB {
       bio: 'I really like food',
       classes: ['ICS 491', 'ICS 622', 'ICS 613'],
       interests: ['finance'],
-      groups: [],
+      groups: ['group-001','group-002','group-003','group-004','group-005'],
       imagePath: 'assets/images/default_profile.png',
     ),
   ];
@@ -67,8 +67,16 @@ class UserDB {
     return _users.firstWhere((userData) => userData.id == userID);
   }
 
-  UserData getStudent(String studentName) {
-    return _users.firstWhere((userData) => userData.name == studentName);
+  List<String> getUserNames(List<String> userIDs){
+    List<UserData> givenUsers = [];
+    userIDs.forEach((userID) {givenUsers.add(getUser(userID));});
+    List<String> userNames = [];
+    givenUsers.forEach((user) => userNames.add(user.name));
+    return userNames;
+  }
+
+  UserData getStudent(String userID) {
+    return _users.firstWhere((userData) => userData.id == userID);
   }
 
   List<UserData> getUsers(List<String> userIDs) {

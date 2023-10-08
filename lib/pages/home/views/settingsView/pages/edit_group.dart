@@ -2,24 +2,27 @@ import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../data_model/group_db.dart';
+import '../../../../../data_model/user_db.dart';
 
 /// Displays a list of Gardens.
 class EditGroup extends StatelessWidget {
   EditGroup({
     super.key,
-    required this.groupName,
+    required this.groupID,
   });
 
   static const routeName = '/settings';
-  String groupName;
+  String groupID;
 
   @override
   Widget build(BuildContext context) {
-    List<String> memberList = groupDB.getMembers(groupName);
+    GroupData group = groupDB.getGroup(groupID);
+    List<String> memberIDs = groupDB.getMembers(groupID);
+    List<String> memberNames = userDB.getUserNames(memberIDs);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editing: ' + groupName),
+        title: Text('Editing: ' + group.name),
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
       ),
       body: Column(
@@ -150,7 +153,7 @@ class EditGroup extends StatelessWidget {
                                   fontWeight: FontWeight.bold, fontSize: 26)),
                           const SizedBox(height: 15.0),
                           Text(
-                              memberList.toString(),
+                              memberNames.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20)),
                         ],

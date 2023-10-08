@@ -9,14 +9,14 @@ import 'edit_group.dart';
 class EditGroupBar extends StatelessWidget {
   const EditGroupBar({
     super.key,
-    required this.groupName,
+    required this.groupID,
   });
 
-  final String groupName;
+  final String groupID;
 
   @override
   Widget build(BuildContext context) {
-    GroupData group = groupDB.getGroup(groupName);
+    GroupData group = groupDB.getGroup(groupID);
 
     return Column(
       children: [
@@ -34,7 +34,7 @@ class EditGroupBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => EditGroup(
-                      groupName: group.name,
+                      groupID: group.id,
                     )),
               );
             },

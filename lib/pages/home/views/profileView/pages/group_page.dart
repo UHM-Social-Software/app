@@ -6,15 +6,15 @@ import '../../../../../data_model/group_db.dart';
 class GroupPage extends StatelessWidget {
   GroupPage({
     super.key,
-    required this.groupName,
+    required this.groupID,
   });
 
   static const routeName = '/group';
-  String groupName;
+  String groupID;
 
   @override
   Widget build(BuildContext context) {
-    GroupData group = groupDB.getGroup(groupName);
+    GroupData group = groupDB.getGroup(groupID);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),

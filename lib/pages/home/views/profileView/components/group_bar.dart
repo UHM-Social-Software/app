@@ -11,14 +11,14 @@ import '../pages/group_page.dart';
 class GroupBar extends StatelessWidget {
   const GroupBar({
     super.key,
-    required this.groupName,
+    required this.groupID,
   });
 
-  final String groupName;
+  final String groupID;
 
   @override
   Widget build(BuildContext context) {
-    GroupData group = groupDB.getGroup(groupName);
+    GroupData group = groupDB.getGroup(groupID);
 
     return Column(
       children: [
@@ -36,7 +36,7 @@ class GroupBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => GroupPage(
-                      groupName: group.name,
+                      groupID: groupID,
                     )),
               );
             },

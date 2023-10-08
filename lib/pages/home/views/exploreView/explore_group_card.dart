@@ -1,16 +1,17 @@
 import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../data_model/group_db.dart';
 import '../profileView/pages/group_page.dart';
 
 /// Displays a news item given its ID.
 class ExploreGroupCard extends StatelessWidget {
   const ExploreGroupCard({
     super.key,
-    required this.groupName,
+    required this.groupID,
   });
 
-  final String groupName;
+  final String groupID;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,11 @@ class ExploreGroupCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => GroupPage(
-                        groupName: groupName,
+                    groupID: groupID,
                       )),
             );
           },
-          child: Text(groupName,
+          child: Text(groupDB.getGroup(groupID).name,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

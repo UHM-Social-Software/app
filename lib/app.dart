@@ -72,14 +72,14 @@ class MyApp extends StatelessWidget {
               case CreateGroup.routeName:
                 return CreateGroup();
               case EditGroup.routeName:
-                return EditGroup(groupName: '',);
+                return EditGroup(groupID: '',);
               case ClassPage.routeName:
                 return ClassPage(
                   className: '',
                 );
               case GroupPage.routeName:
                 return GroupPage(
-                  groupName: '',
+                  groupID: '',
                 );
               case SigninView.routeName:
                 return const SigninView();

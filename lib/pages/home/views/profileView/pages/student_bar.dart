@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 class StudentBar extends StatelessWidget {
   const StudentBar({
     super.key,
-    required this.studentName,
+    required this.userID,
   });
 
-  final String studentName;
+  final String userID;
 
   @override
   Widget build(BuildContext context) {
-    UserData student = userDB.getStudent(studentName);
+    UserData student = userDB.getStudent(userID);
     return Column(
       children: [
         Container(
@@ -41,7 +41,7 @@ class StudentBar extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 30.0),
-                  Text(studentName,
+                  Text(student.name,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20)),
                   const SizedBox(width: 30.0),

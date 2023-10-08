@@ -15,7 +15,7 @@ class GroupsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> groupNames = userDB.getUserGroups(currentUserID);
+    List<String> groupIDs = userDB.getUserGroups(currentUserID);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -24,7 +24,7 @@ class GroupsView extends StatelessWidget {
           children: [
             Column(
               children: [
-                ...groupNames.map((groupName) => GroupBar(groupName: groupName)),
+                ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
               ],
             ),
           ],

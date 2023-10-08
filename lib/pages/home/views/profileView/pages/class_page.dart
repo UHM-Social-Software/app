@@ -15,7 +15,7 @@ class ClassPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> studentNames = classDB.getStudents(className);
+    List<String> studentIDs = classDB.getStudentIDs(className);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
@@ -33,7 +33,7 @@ class ClassPage extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        ...studentNames.map((student) => StudentBar(studentName: student))
+                        ...studentIDs.map((student) => StudentBar(userID: student))
                       ],
                     ),
                   ],

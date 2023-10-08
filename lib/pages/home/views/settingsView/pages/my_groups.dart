@@ -16,7 +16,7 @@ class MyGroups extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> groupNames = groupDB.getMyGroupNames(userDB.getUser(currentUserID).name);
+    List<String> groupIDs = groupDB.getMyGroupIDs(userDB.getUser(currentUserID).id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
@@ -46,7 +46,7 @@ class MyGroups extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        ...groupNames.map((groupName) => EditGroupBar(groupName: groupName)),
+                        ...groupIDs.map((groupID) => EditGroupBar(groupID: groupID)),
                       ],
                     ),
                   ],

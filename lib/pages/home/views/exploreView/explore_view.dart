@@ -15,7 +15,7 @@ class ExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> groupNames = groupDB.getGroupNames();
+    List<String> groupIDs = groupDB.getGroupIDs();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -40,7 +40,7 @@ class ExploreView extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           children: [
-            ...groupNames.map((groupName) => ExploreGroupCard(groupName: groupName))
+            ...groupIDs.map((groupID) => ExploreGroupCard(groupID: groupID))
           ],
         ), /*Column(
         mainAxisAlignment: MainAxisAlignment.start,

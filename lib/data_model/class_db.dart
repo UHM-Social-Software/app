@@ -17,53 +17,53 @@ class ClassDB {
     ClassData(
       name: 'ICS 491',
       students: [
-        'Justin Lisoway',
-        'Bob McDonald',
-        'Donny Boy',
+        'user-001',
+        'user-002',
+        'user-003',
       ],
     ),
     ClassData(
       name: 'ICS 691D',
       students: [
-        'Justin Lisoway',
+        'user-001',
       ],
     ),
     ClassData(
       name: 'ICS 691E',
       students: [
-        'Justin Lisoway',
+        'user-001',
       ],
     ),
     ClassData(
       name: 'ICS 690',
       students: [
-        'Justin Lisoway',
+        'user-001',
       ],
     ),
     ClassData(
       name: 'ICS 622',
       students: [
-        'Justin Lisoway',
-        'Donny Boy',
+        'user-001',
+        'user-002',
       ],
     ),
     ClassData(
       name: 'ICS 613',
       students: [
-        'Justin Lisoway',
-        'Donny Boy',
+        'user-001',
+        'user-002',
       ],
     ),
     ClassData(
       name: 'ICS 314',
       students: [
-        'Bob McDonald',
+        'user-003',
       ],
     ),
     ClassData(
       name: 'ICS 311',
       students: [
-        'Bob McDonald',
+        'user-003',
       ],
     ),
   ];
@@ -78,7 +78,7 @@ class ClassDB {
         .toList();
   }
 
-  List<String> getStudents(String className){
+  List<String> getStudentIDs(String className){
     return _classes.firstWhere((classData) => classData.name == className).students;
   }
 }
