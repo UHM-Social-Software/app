@@ -90,8 +90,16 @@ class UserDB {
   List<String> getUserGroups(String userID){
     return _users.firstWhere((userData) => userData.id == userID).groups;
   }
-}
 
+  bool isUserEmail(String email) {
+    List<String> emails = _users.map((userData) => userData.email).toList();
+    return emails.contains(email);
+  }
+
+  String getUserID(String email) {
+    return _users.firstWhere((userData) => userData.email == email).id;
+  }
+}
 
 final userDBProvider = Provider<UserDB>((ref) {
   return UserDB(ref);

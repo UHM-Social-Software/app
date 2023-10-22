@@ -82,9 +82,9 @@ class MyApp extends StatelessWidget {
                   groupID: '',
                 );
               case SigninView.routeName:
-                return const SigninView();
+                return SigninView();
               default:
-                return const SigninView();
+                return SigninView();
             }
           },
         );
