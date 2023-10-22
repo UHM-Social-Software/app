@@ -107,6 +107,14 @@ class UserDB {
   void updateUserBio(String userID, String newBio){
     _users.firstWhere((userData) => userData.id == userID).bio = newBio;
   }
+
+  void removeUserInterest(String userID, String interest){
+    _users.firstWhere((userData) => userData.id == userID).interests?.remove(interest);
+  }
+
+  void addUserInterest(String userID, String interest){
+    _users.firstWhere((userData) => userData.id == userID).interests?.add(interest);
+  }
 }
 
 final userDBProvider = Provider<UserDB>((ref) {
