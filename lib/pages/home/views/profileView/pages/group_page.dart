@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/group_db.dart';
 
 /// Displays a list of Gardens.
-class GroupPage extends StatelessWidget {
+class GroupPage extends ConsumerWidget {
   GroupPage({
     super.key,
     required this.groupID,
@@ -13,7 +14,8 @@ class GroupPage extends StatelessWidget {
   String groupID;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GroupDB groupDB = ref.watch(groupDBProvider);
     GroupData group = groupDB.getGroup(groupID);
     return Scaffold(
       appBar: AppBar(

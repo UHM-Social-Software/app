@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 /// The data associated with users.
 class GroupData {
   GroupData({
@@ -21,6 +23,8 @@ class GroupData {
 
 /// Provides access to and operations on all defined users.
 class GroupDB {
+  GroupDB(this.ref);
+  final ProviderRef<GroupDB> ref;
   final List<GroupData> _groups = [
     GroupData(
         id: 'group-001',
@@ -89,5 +93,6 @@ class GroupDB {
   }
 }
 
-/// The singleton instance providing access to all user data for clients.
-GroupDB groupDB = GroupDB();
+final groupDBProvider = Provider<GroupDB>((ref) {
+  return GroupDB(ref);
+});

@@ -17,6 +17,7 @@ class EditGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final GroupDB groupDB = ref.watch(groupDBProvider);
     GroupData group = groupDB.getGroup(groupID);
     List<String> memberIDs = groupDB.getMembers(groupID);
 
