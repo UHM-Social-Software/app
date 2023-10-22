@@ -1,4 +1,5 @@
 import 'package:app/data_model/user_db.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// The data associated with users.
 class ClassData {
@@ -13,6 +14,8 @@ class ClassData {
 
 /// Provides access to and operations on all defined users.
 class ClassDB {
+  ClassDB(this.ref);
+  final ProviderRef<ClassDB> ref;
   final List<ClassData> _classes = [
     ClassData(
       name: 'ICS 491',
@@ -83,5 +86,6 @@ class ClassDB {
   }
 }
 
-/// The singleton instance providing access to all user data for clients.
-ClassDB classDB = ClassDB();
+final classDBProvider = Provider<ClassDB>((ref) {
+  return ClassDB(ref);
+});

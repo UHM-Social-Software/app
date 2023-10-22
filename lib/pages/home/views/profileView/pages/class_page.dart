@@ -1,11 +1,12 @@
 import 'package:app/pages/home/views/profileView/pages/student_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/class_db.dart';
 
 
 /// Displays a list of Gardens.
-class ClassPage extends StatelessWidget {
+class ClassPage extends ConsumerWidget {
   ClassPage({
     super.key, required this.className,
   });
@@ -14,8 +15,10 @@ class ClassPage extends StatelessWidget {
   String className;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ClassDB classDB = ref.watch(classDBProvider);
     List<String> studentIDs = classDB.getStudentIDs(className);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),

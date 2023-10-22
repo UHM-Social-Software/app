@@ -1,12 +1,13 @@
 import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 import '../../../../../data_model/class_db.dart';
 import '../pages/class_page.dart';
 
 /// Displays a news item given its ID.
-class ClassBar extends StatelessWidget {
+class ClassBar extends ConsumerWidget {
   const ClassBar({
     super.key,
     required this.className,
@@ -15,7 +16,8 @@ class ClassBar extends StatelessWidget {
   final String className;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ClassDB classDB = ref.watch(classDBProvider);
     ClassData currentClass = classDB.getClass(className);
 
     return Column(
