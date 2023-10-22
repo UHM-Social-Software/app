@@ -100,6 +100,10 @@ class UserDB {
     return _users.firstWhere((userData) => userData.email == email).id;
   }
 
+  String getUserIDWithName(String name) {
+    return _users.firstWhere((userData) => userData.name == name).id;
+  }
+
   String? getBio(String userID){
     return _users.firstWhere((userData) => userData.id == userID).bio;
   }
@@ -114,6 +118,14 @@ class UserDB {
 
   void addUserInterest(String userID, String interest){
     _users.firstWhere((userData) => userData.id == userID).interests?.add(interest);
+  }
+
+  void removeGroup(String userID, String groupID){
+    _users.firstWhere((userData) => userData.id == userID).groups.remove(groupID);
+  }
+
+  void addGroup(String userID, String groupID){
+    _users.firstWhere((userData) => userData.id == userID).groups.add(groupID);
   }
 }
 

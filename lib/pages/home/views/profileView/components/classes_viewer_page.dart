@@ -1,23 +1,25 @@
+import 'package:app/pages/home/views/profileView/components/class_bar.dart';
+import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../pages/class_page.dart';
-import '../pages/group_page.dart';
-import '../../../../../data_model/user_db.dart';
-import 'group_bar.dart';
 
-class GroupsView extends ConsumerWidget {
-  const GroupsView({
+/// Displays a list of Gardens.
+class ClassesViewerPage extends ConsumerWidget {
+  const ClassesViewerPage({
     super.key,
+    required this.studentID,
   });
 
-  final String title = 'groupsView';
+  final String title = 'ClassesViewerPage';
+  final String studentID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
-    List<String> groupIDs = userDB.getUserGroups(currentUserID);
+    UserData user = userDB.getUser(studentID);
+    List<String> classNames = user.classes;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -26,7 +28,7 @@ class GroupsView extends ConsumerWidget {
           children: [
             Column(
               children: [
-                ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
+                ...classNames.map((className) => ClassBar(className: className))
               ],
             ),
           ],

@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               case MessagingScreen.routeName:
                 return MessagingScreen();
               case SettingsView.routeName:
-                return SettingsView();
+                return const SettingsView();
               case MyGroups.routeName:
                 return MyGroups();
               case CreateGroup.routeName:

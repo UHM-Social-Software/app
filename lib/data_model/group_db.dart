@@ -115,6 +115,24 @@ class GroupDB {
         membership: membership);
     _groups.add(newGroup);
   }
+
+  void updateGroup(
+      String groupID,
+    String newDescription,
+    String newEvents,
+  ) {
+    GroupData group = _groups.firstWhere((groupData) => groupData.id == groupID);
+    group.description = newDescription;
+    group.upcomingEvents = newEvents;
+  }
+
+  void removeMember(String userID, String groupID){
+    _groups.firstWhere((groupData) => groupData.id == groupID).membership.remove(userID);
+  }
+
+  void addMember(String userID, String groupID){
+    _groups.firstWhere((groupData) => groupData.id == groupID).membership.add(userID);
+  }
 }
 
 final groupDBProvider = Provider<GroupDB>((ref) {

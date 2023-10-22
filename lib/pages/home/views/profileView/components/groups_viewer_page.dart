@@ -6,18 +6,19 @@ import '../pages/group_page.dart';
 import '../../../../../data_model/user_db.dart';
 import 'group_bar.dart';
 
-class GroupsView extends ConsumerWidget {
-  const GroupsView({
+class GroupsViewerPage extends ConsumerWidget {
+  const GroupsViewerPage({
     super.key,
+    required this.studentID,
   });
 
-  final String title = 'groupsView';
+  final String title = 'GroupsViewerPage';
+  final String studentID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
-    List<String> groupIDs = userDB.getUserGroups(currentUserID);
+    List<String> groupIDs = userDB.getUserGroups(studentID);
 
     return Scaffold(
       body: SingleChildScrollView(
