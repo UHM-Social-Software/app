@@ -24,6 +24,7 @@ class GroupData {
 /// Provides access to and operations on all defined users.
 class GroupDB {
   GroupDB(this.ref);
+
   final ProviderRef<GroupDB> ref;
   final List<GroupData> _groups = [
     GroupData(
@@ -57,7 +58,7 @@ class GroupDB {
         upcomingEvents: 'Cool stuff going on',
         imagePath: 'assets/images/default_profile.png',
         owner: 'user-001',
-        membership: ['user-001','user-003']),
+        membership: ['user-001', 'user-003']),
     GroupData(
         id: 'group-005',
         name: 'Group 5',
@@ -85,11 +86,34 @@ class GroupDB {
   }
 
   List<String> getMyGroupIDs(String ownerID) {
-    return getGroupIDsFromList(_groups.where((groupData) => groupData.owner == ownerID).toList());
+    return getGroupIDsFromList(
+        _groups.where((groupData) => groupData.owner == ownerID).toList());
   }
 
-  List<String> getMembers(String groupID){
-    return _groups.firstWhere((groupData) => groupData.id == groupID).membership;
+  List<String> getMembers(String groupID) {
+    return _groups
+        .firstWhere((groupData) => groupData.id == groupID)
+        .membership;
+  }
+
+  void createGroup({
+    required String name,
+    required String description,
+    required String upcomingEvents,
+    required String ownerID,
+  }) {
+    String id = 'group-${(_groups.length + 1).toString().padLeft(3, '0')}';
+    String imagePath = 'assets/images/default_profile.png';
+    List<String> membership = [ownerID];
+    GroupData newGroup = GroupData(
+        id: id,
+        name: name,
+        description: description,
+        upcomingEvents: upcomingEvents,
+        owner: ownerID,
+        imagePath: imagePath,
+        membership: membership);
+    _groups.add(newGroup);
   }
 }
 

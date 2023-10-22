@@ -28,7 +28,7 @@ class CreateGroupButton extends ConsumerWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CreateGroup()),
+                MaterialPageRoute(builder: (context) => CreateGroup()),
               );
             },
             child: const Text('Create Group',

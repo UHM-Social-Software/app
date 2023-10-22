@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/group_db.dart';
 import '../../../../../data_model/user_db.dart';
-import '../../profileView/components/group_bar.dart';
-import 'edit_group.dart';
 
 /// Displays a list of Gardens.
 class MyGroups extends ConsumerWidget {
