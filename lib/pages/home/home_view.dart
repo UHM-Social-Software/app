@@ -1,8 +1,8 @@
-import 'package:app/pages/home/views/settings_view.dart';
+import 'package:app/pages/home/views/messaging/messaging_screen.dart';
+import 'package:app/pages/home/views/settingsView/settings_view.dart';
 import 'package:flutter/material.dart';
 
-import 'views/explore_view.dart';
-import 'views/messages_view.dart';
+import 'views/exploreView/explore_view.dart';
 import 'views/profileView/profile_view.dart';
 
 /// Top-level Layout for all of the "Home" related
@@ -34,7 +34,7 @@ class HomeView extends StatefulWidget {
     },
     2: {
       'title': const Text('Messages'),
-      'body': const MessagesView(),
+      'body': const MessagingScreen(),
       'navItem': const BottomNavigationBarItem(
         label: 'Messages',
         icon: Icon(Icons.message_outlined),

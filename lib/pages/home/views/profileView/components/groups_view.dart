@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../pages/class_page.dart';
 import '../pages/group_page.dart';
+import '../../../../../data_model/user_db.dart';
+import 'group_bar.dart';
 
 /// Displays a list of Gardens.
 class GroupsView extends StatelessWidget {
@@ -9,46 +11,24 @@ class GroupsView extends StatelessWidget {
     super.key,
   });
 
-  static const routeName = '/messages';
-  final String title = 'messages';
+  final String title = 'groupsView';
 
   @override
   Widget build(BuildContext context) {
+    List<String> groupIDs = userDB.getUserGroups(currentUserID);
+
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              SizedBox(height: 10.0),
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GroupPage(
-                                title: 'Cooler Chess Club',
-                              )),
-                    );
-                  },
-                  child: Text('Cooler Chess Club',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16)),
-                ),
-              ),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

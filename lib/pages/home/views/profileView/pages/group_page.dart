@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../data_model/group_db.dart';
+
 /// Displays a list of Gardens.
 class GroupPage extends StatelessWidget {
   GroupPage({
     super.key,
-    required this.title,
+    required this.groupID,
   });
 
   static const routeName = '/group';
-  String title;
+  String groupID;
 
   @override
   Widget build(BuildContext context) {
+    GroupData group = groupDB.getGroup(groupID);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
@@ -30,7 +33,7 @@ class GroupPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/default_profile.png'),
+                      image: AssetImage(group.imagePath.toString()),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -51,7 +54,7 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(title,
+                      child: Text(group.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26)),
                     ),
@@ -74,10 +77,13 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(
-                          'Club Description',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
+                      child: Column(
+                        children: [
+                          Text(group.description,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 22)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -98,9 +104,28 @@ class GroupPage extends StatelessWidget {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text('Upcoming Events:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.all(3),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Upcoming Events:',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 26)),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(group.upcomingEvents,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20)),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -126,7 +151,8 @@ class GroupPage extends StatelessWidget {
                     child: Text('Join / Request Invite',
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold, fontSize: 26)),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26)),
                   ),
                 ),
               ],

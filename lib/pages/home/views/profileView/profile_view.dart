@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data_model/user_db.dart';
 import 'components/classes_view.dart';
 import 'components/groups_view.dart';
+
 
 /// Top-level Layout for all of the "Home" related
 class ProfileView extends StatefulWidget {
@@ -15,20 +17,10 @@ class ProfileView extends StatefulWidget {
   // need to be moved into the state widget.
   final Map pages = {
     0: {
-      'title': const Text('Classes'),
       'body': const ClassesView(),
-      'navItem': const BottomNavigationBarItem(
-        label: 'Classes',
-        icon: Icon(Icons.person_outline_rounded),
-      ),
     },
     1: {
-      'title': const Text('Groups'),
       'body': const GroupsView(),
-      'navItem': const BottomNavigationBarItem(
-        label: 'Groups',
-        icon: Icon(Icons.search_rounded),
-      ),
     },
   };
 
@@ -37,6 +29,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  UserData user = userDB.getUser(currentUserID);
   int _selectedIndex = 0;
 
   @override
@@ -56,7 +49,9 @@ class _ProfileViewState extends State<ProfileView> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/default_profile.png'),
+                      image: AssetImage(
+                          user.imagePath != null ? user.imagePath.toString() : 'assets/images/default_profile.png'
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -77,7 +72,7 @@ class _ProfileViewState extends State<ProfileView> {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text('Name',
+                      child: Text(user.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
@@ -126,7 +121,7 @@ class _ProfileViewState extends State<ProfileView> {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
-                          'This is a sample Bio. There will be a feature for each user to edit their own bio.',
+                          user.bio != null ? user.bio.toString() : '',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
@@ -149,7 +144,7 @@ class _ProfileViewState extends State<ProfileView> {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text('Interests will be displayed here.',
+                      child: Text(user.interests != null ? user.interests.toString() : '',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
@@ -218,8 +213,9 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
             Container(
-              height: 200,
+              height: 292,
               alignment: Alignment.center,
               child: widget.pages[_selectedIndex]['body'],
             ),
