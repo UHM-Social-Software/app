@@ -1,5 +1,6 @@
 import 'package:app/pages/home/views/settingsView/pages/edit_group_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/group_db.dart';
 import '../../../../../data_model/user_db.dart';
@@ -7,7 +8,7 @@ import '../../profileView/components/group_bar.dart';
 import 'edit_group.dart';
 
 /// Displays a list of Gardens.
-class MyGroups extends StatelessWidget {
+class MyGroups extends ConsumerWidget {
   MyGroups({
     super.key,
   });
@@ -15,7 +16,9 @@ class MyGroups extends StatelessWidget {
   static const routeName = '/my_groups';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String currentUserID = ref.watch(currentUserIDProvider);
+    final UserDB userDB = ref.watch(userDBProvider);
     List<String> groupIDs = groupDB.getMyGroupIDs(userDB.getUser(currentUserID).id);
     return Scaffold(
       appBar: AppBar(

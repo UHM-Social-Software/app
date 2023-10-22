@@ -1,11 +1,12 @@
 import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/group_db.dart';
 import '../../../../../data_model/user_db.dart';
 
 /// Displays a list of Gardens.
-class EditGroup extends StatelessWidget {
+class EditGroup extends ConsumerWidget {
   EditGroup({
     super.key,
     required this.groupID,
@@ -15,9 +16,11 @@ class EditGroup extends StatelessWidget {
   String groupID;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     GroupData group = groupDB.getGroup(groupID);
     List<String> memberIDs = groupDB.getMembers(groupID);
+
+    final UserDB userDB = ref.watch(userDBProvider);
     List<String> memberNames = userDB.getUserNames(memberIDs);
 
     return Scaffold(

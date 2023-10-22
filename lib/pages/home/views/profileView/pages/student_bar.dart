@@ -1,8 +1,9 @@
 import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Displays a news item given its ID.
-class StudentBar extends StatelessWidget {
+class StudentBar extends ConsumerWidget {
   const StudentBar({
     super.key,
     required this.userID,
@@ -11,7 +12,8 @@ class StudentBar extends StatelessWidget {
   final String userID;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final UserDB userDB = ref.watch(userDBProvider);
     UserData student = userDB.getStudent(userID);
     return Column(
       children: [
