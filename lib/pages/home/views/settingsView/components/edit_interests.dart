@@ -65,7 +65,7 @@ class EditInterests extends ConsumerWidget {
                             filled: true,
                             fillColor: Color.fromRGBO(38, 95, 70, 1.0),
                             hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                            hintText: "Add interest",
+                            hintText: "New interest",
                           ),
                         ),
                       ),
@@ -89,7 +89,7 @@ class EditInterests extends ConsumerWidget {
                             userDB.addUserInterest(currentUserID, newInterest);
                             Navigator.pushReplacementNamed(context, HomeView.routeName);
                           },
-                          child: Text('Save',
+                          child: Text('Add',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold, fontSize: 20)),
