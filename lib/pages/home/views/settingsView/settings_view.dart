@@ -1,50 +1,33 @@
 import 'package:app/pages/home/views/settingsView/pages/create_group.dart';
 import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../signin_view.dart';
+import '../../../../data_model/user_db.dart';
+import '../../home_view.dart';
+import 'package:app/pages/home/views/settingsView/components/logout_button.dart';
 
 /// Displays a list of Gardens.
-class SettingsView extends StatelessWidget {
-  const SettingsView({
+class SettingsView extends ConsumerWidget {
+  SettingsView({
     super.key,
   });
 
   static const routeName = '/settings';
   final String title = 'settings';
+  final _bioFormKey = GlobalKey<FormBuilderFieldState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final UserDB userDB = ref.watch(userDBProvider);
+    final String currentUserID = ref.watch(currentUserIDProvider);
+
     return Scaffold(
       body: Column(
         children: [
           const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 55,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SigninView()),
-                    );
-                  },
-                  child: Text('Logout',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold, fontSize: 30)),
-                ),
-              ),
-            ],
-          ),
+          const LogoutButton(),
           const SizedBox(height: 43.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -84,9 +67,11 @@ class SettingsView extends StatelessWidget {
                   color: Color.fromRGBO(38, 95, 70, 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                child: TextField(
+                child: FormBuilderTextField(
+                  key: _bioFormKey,
                   maxLines: 3,
                   minLines: 2,
+                  name: 'bio',
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10),
                     enabledBorder: OutlineInputBorder(
@@ -100,8 +85,34 @@ class SettingsView extends StatelessWidget {
                     filled: true,
                     fillColor: Color.fromRGBO(38, 95, 70, 1.0),
                     hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                    hintText: 'Enter New Bio',
+                    hintText: userDB.getBio(currentUserID),
                   ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: 375,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(38, 95, 70, 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                child: MaterialButton(
+                  onPressed: () {
+                      String newBio = _bioFormKey.currentState?.value;
+                      userDB.updateUserBio(currentUserID, newBio);
+                      Navigator.pushReplacementNamed(context, HomeView.routeName);
+                  },
+                  child: Text('Save New Bio',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
             ],

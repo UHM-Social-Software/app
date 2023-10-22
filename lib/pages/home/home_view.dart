@@ -42,7 +42,7 @@ class HomeView extends StatefulWidget {
     },
     3: {
       'title': const Text('Settings'),
-      'body': const SettingsView(),
+      'body':  SettingsView(),
       'navItem': const BottomNavigationBarItem(
         label: 'Settings',
         icon: Icon(Icons.settings),

@@ -99,6 +99,14 @@ class UserDB {
   String getUserID(String email) {
     return _users.firstWhere((userData) => userData.email == email).id;
   }
+
+  String? getBio(String userID){
+    return _users.firstWhere((userData) => userData.id == userID).bio;
+  }
+
+  void updateUserBio(String userID, String newBio){
+    _users.firstWhere((userData) => userData.id == userID).bio = newBio;
+  }
 }
 
 final userDBProvider = Provider<UserDB>((ref) {
