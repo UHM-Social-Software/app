@@ -1,4 +1,4 @@
-# "Find Your People" App (Phase 1)
+# "Find Your People" App (Phase 2)
 
 This mockup was modified from the Flutter Skeleton template app. Differences include:
 
