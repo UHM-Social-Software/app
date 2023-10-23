@@ -1,16 +1,16 @@
-import 'package:app/pages/home/views/exploreView/explore_view.dart';
-import 'package:app/pages/home/views/messaging/messaging_screen.dart';
-import 'package:app/pages/home/views/messaging/messaging_service.dart';
-import 'package:app/pages/home/views/profileView/pages/class_page.dart';
-import 'package:app/pages/home/views/settingsView/pages/create_group.dart';
-import 'package:app/pages/home/views/settingsView/pages/edit_group.dart';
-import 'package:app/pages/home/views/profileView/pages/group_page.dart';
-import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
-import 'package:app/pages/home/views/profileView/profile_view.dart';
+import 'package:app/features/explore/presentation/explore_view.dart';
+import 'package:app/features/messaging/presentation/messaging_screen.dart';
+import 'package:app/features/messaging/application/messaging_service.dart';
+import 'package:app/features/class/presentation/class_page.dart';
+import 'package:app/features/group/presentation/create_group_page.dart';
+import 'package:app/features/group/presentation/edit_group_page.dart';
+import 'package:app/features/group/presentation/view_group_page.dart';
+import 'package:app/features/group/presentation/owned_groups.dart';
+import 'package:app/features/user/presentation/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'pages/home/home_view.dart';
-import 'pages/signin_view.dart';
-import 'pages/home/views/settingsView/settings_view.dart';
+import 'features/home/presentation/home_view.dart';
+import 'features/authentication/presentation/signin_view.dart';
+import 'features/settings/presentation/settings_view.dart';
 
 
 /// The Widget that configures your application.
@@ -30,14 +30,14 @@ class MyApp extends StatelessWidget {
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromRGBO(81, 202, 149, 1.0),
-        textSelectionTheme: TextSelectionThemeData(
+        scaffoldBackgroundColor: const Color.fromRGBO(81, 202, 149, 1.0),
+        textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color.fromRGBO(81, 202, 149, 1.0),
         ),
-        primaryColor: Color.fromRGBO(38, 95, 70, 1.0),
+        primaryColor: const Color.fromRGBO(38, 95, 70, 1.0),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromRGBO(38, 95, 70, 1.0),
+            backgroundColor: const Color.fromRGBO(38, 95, 70, 1.0),
             // background (button) color
             foregroundColor: Colors.white, // foreground (text) color
           ),
@@ -60,25 +60,25 @@ class MyApp extends StatelessWidget {
               case ProfileView.routeName:
                 return ProfileView();
               case ExploreView.routeName:
-                return ExploreView();
+                return const ExploreView();
               /*case MessagesView.routeName:
                 return MessagesView();*/
               case MessagingScreen.routeName:
-                return MessagingScreen();
+                return const MessagingScreen();
               case SettingsView.routeName:
                 return const SettingsView();
               case MyGroups.routeName:
-                return MyGroups();
+                return const MyGroups();
               case CreateGroup.routeName:
                 return CreateGroup();
               case EditGroup.routeName:
                 return EditGroup(groupID: '',);
               case ClassPage.routeName:
-                return ClassPage(
+                return const ClassPage(
                   className: '',
                 );
               case GroupPage.routeName:
-                return GroupPage(
+                return const GroupPage(
                   groupID: '',
                 );
               case SigninView.routeName:
