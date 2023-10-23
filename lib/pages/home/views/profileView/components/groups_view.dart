@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../pages/class_page.dart';
 import '../pages/group_page.dart';
 import '../../../../../data_model/user_db.dart';
 import 'group_bar.dart';
 
-/// Displays a list of Gardens.
-class GroupsView extends StatelessWidget {
+class GroupsView extends ConsumerWidget {
   const GroupsView({
     super.key,
   });
@@ -14,7 +14,9 @@ class GroupsView extends StatelessWidget {
   final String title = 'groupsView';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final UserDB userDB = ref.watch(userDBProvider);
+    final String currentUserID = ref.watch(currentUserIDProvider);
     List<String> groupIDs = userDB.getUserGroups(currentUserID);
 
     return Scaffold(

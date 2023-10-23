@@ -33,6 +33,10 @@ dependencies:
   firebase_messaging: ^14.6.8
   http: ^1.1.0
   flutter_local_notifications: ^15.1.1
+  flutter_riverpod: ^2.4.3
+  flutter_form_builder: ^9.1.1
+  form_builder_validators: ^9.1.0
+
 
 
 

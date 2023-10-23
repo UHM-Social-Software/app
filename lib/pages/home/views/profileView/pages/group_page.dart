@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../data_model/group_db.dart';
+import '../../../../../data_model/user_db.dart';
 
 /// Displays a list of Gardens.
-class GroupPage extends StatelessWidget {
+class GroupPage extends ConsumerWidget {
   GroupPage({
     super.key,
     required this.groupID,
@@ -13,7 +15,10 @@ class GroupPage extends StatelessWidget {
   String groupID;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GroupDB groupDB = ref.watch(groupDBProvider);
+    final UserDB userDB = ref.watch(userDBProvider);
+    final String currentUserID = ref.watch(currentUserIDProvider);
     GroupData group = groupDB.getGroup(groupID);
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +29,7 @@ class GroupPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20.0),
+            // Group Image
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -41,6 +47,7 @@ class GroupPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 25.0),
+            // Name
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,6 +70,7 @@ class GroupPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10.0),
+            // Description
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -90,6 +98,7 @@ class GroupPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10.0),
+            // Events
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -132,6 +141,7 @@ class GroupPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10.0),
+            // Join / Request Invite Button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -146,7 +156,17 @@ class GroupPage extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                      // open messages
+                      if(!groupDB.getMembers(groupID).contains(currentUserID)){
+                        groupDB.addMember(currentUserID, groupID);
+                        userDB.addGroup(currentUserID, groupID);
+                        Navigator.pop(context);
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("You're already in this group!"),
+                          duration: Duration(seconds: 5),
+                        ));
+                      }
                     },
                     child: Text('Join / Request Invite',
                         style: TextStyle(

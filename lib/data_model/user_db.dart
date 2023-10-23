@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 /// The data associated with users.
 class UserData {
   UserData({
@@ -23,6 +25,8 @@ class UserData {
 
 /// Provides access to and operations on all defined users.
 class UserDB {
+  UserDB(this.ref);
+  final ProviderRef<UserDB> ref;
   final List<UserData> _users = [
     UserData(
       id: 'user-001',
@@ -86,10 +90,49 @@ class UserDB {
   List<String> getUserGroups(String userID){
     return _users.firstWhere((userData) => userData.id == userID).groups;
   }
+
+  bool isUserEmail(String email) {
+    List<String> emails = _users.map((userData) => userData.email).toList();
+    return emails.contains(email);
+  }
+
+  String getUserID(String email) {
+    return _users.firstWhere((userData) => userData.email == email).id;
+  }
+
+  String getUserIDWithName(String name) {
+    return _users.firstWhere((userData) => userData.name == name).id;
+  }
+
+  String? getBio(String userID){
+    return _users.firstWhere((userData) => userData.id == userID).bio;
+  }
+
+  void updateUserBio(String userID, String newBio){
+    _users.firstWhere((userData) => userData.id == userID).bio = newBio;
+  }
+
+  void removeUserInterest(String userID, String interest){
+    _users.firstWhere((userData) => userData.id == userID).interests?.remove(interest);
+  }
+
+  void addUserInterest(String userID, String interest){
+    _users.firstWhere((userData) => userData.id == userID).interests?.add(interest);
+  }
+
+  void removeGroup(String userID, String groupID){
+    _users.firstWhere((userData) => userData.id == userID).groups.remove(groupID);
+  }
+
+  void addGroup(String userID, String groupID){
+    _users.firstWhere((userData) => userData.id == userID).groups.add(groupID);
+  }
 }
 
-/// The singleton instance providing access to all user data for clients.
-UserDB userDB = UserDB();
+final userDBProvider = Provider<UserDB>((ref) {
+  return UserDB(ref);
+});
 
-/// The currently logged in user.
-String currentUserID = 'user-001';
+final currentUserIDProvider = StateProvider<String>((ref) {
+  return 'user-001';
+});

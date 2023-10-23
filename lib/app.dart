@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               case MessagingScreen.routeName:
                 return MessagingScreen();
               case SettingsView.routeName:
-                return SettingsView();
+                return const SettingsView();
               case MyGroups.routeName:
                 return MyGroups();
               case CreateGroup.routeName:
@@ -82,9 +82,9 @@ class MyApp extends StatelessWidget {
                   groupID: '',
                 );
               case SigninView.routeName:
-                return const SigninView();
+                return SigninView();
               default:
-                return const SigninView();
+                return SigninView();
             }
           },
         );

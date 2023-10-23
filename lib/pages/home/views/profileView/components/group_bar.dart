@@ -1,5 +1,6 @@
 import 'package:app/data_model/user_db.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 import '../../../../../data_model/class_db.dart';
@@ -8,7 +9,7 @@ import '../pages/class_page.dart';
 import '../pages/group_page.dart';
 
 /// Displays a news item given its ID.
-class GroupBar extends StatelessWidget {
+class GroupBar extends ConsumerWidget {
   const GroupBar({
     super.key,
     required this.groupID,
@@ -17,7 +18,8 @@ class GroupBar extends StatelessWidget {
   final String groupID;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GroupDB groupDB = ref.watch(groupDBProvider);
     GroupData group = groupDB.getGroup(groupID);
 
     return Column(

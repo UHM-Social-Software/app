@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 /// The data associated with users.
 class GroupData {
   GroupData({
@@ -21,6 +23,9 @@ class GroupData {
 
 /// Provides access to and operations on all defined users.
 class GroupDB {
+  GroupDB(this.ref);
+
+  final ProviderRef<GroupDB> ref;
   final List<GroupData> _groups = [
     GroupData(
         id: 'group-001',
@@ -53,7 +58,7 @@ class GroupDB {
         upcomingEvents: 'Cool stuff going on',
         imagePath: 'assets/images/default_profile.png',
         owner: 'user-001',
-        membership: ['user-001','user-003']),
+        membership: ['user-001', 'user-003']),
     GroupData(
         id: 'group-005',
         name: 'Group 5',
@@ -81,13 +86,55 @@ class GroupDB {
   }
 
   List<String> getMyGroupIDs(String ownerID) {
-    return getGroupIDsFromList(_groups.where((groupData) => groupData.owner == ownerID).toList());
+    return getGroupIDsFromList(
+        _groups.where((groupData) => groupData.owner == ownerID).toList());
   }
 
-  List<String> getMembers(String groupID){
-    return _groups.firstWhere((groupData) => groupData.id == groupID).membership;
+  List<String> getMembers(String groupID) {
+    return _groups
+        .firstWhere((groupData) => groupData.id == groupID)
+        .membership;
+  }
+
+  void createGroup({
+    required String name,
+    required String description,
+    required String upcomingEvents,
+    required String ownerID,
+  }) {
+    String id = 'group-${(_groups.length + 1).toString().padLeft(3, '0')}';
+    String imagePath = 'assets/images/default_profile.png';
+    List<String> membership = [ownerID];
+    GroupData newGroup = GroupData(
+        id: id,
+        name: name,
+        description: description,
+        upcomingEvents: upcomingEvents,
+        owner: ownerID,
+        imagePath: imagePath,
+        membership: membership);
+    _groups.add(newGroup);
+  }
+
+  void updateGroup(
+      String groupID,
+    String newDescription,
+    String newEvents,
+  ) {
+    GroupData group = _groups.firstWhere((groupData) => groupData.id == groupID);
+    group.description = newDescription;
+    group.upcomingEvents = newEvents;
+  }
+
+  void removeMember(String userID, String groupID){
+    _groups.firstWhere((groupData) => groupData.id == groupID).membership.remove(userID);
+  }
+
+  void addMember(String userID, String groupID){
+    _groups.firstWhere((groupData) => groupData.id == groupID).membership.add(userID);
   }
 }
 
-/// The singleton instance providing access to all user data for clients.
-GroupDB groupDB = GroupDB();
+final groupDBProvider = Provider<GroupDB>((ref) {
+  return GroupDB(ref);
+});

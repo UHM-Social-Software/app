@@ -1,11 +1,14 @@
-import 'package:app/pages/home/views/settingsView/pages/create_group.dart';
-import 'package:app/pages/home/views/settingsView/pages/my_groups.dart';
+import 'package:app/pages/home/views/settingsView/components/create_group_button.dart';
+import 'package:app/pages/home/views/settingsView/components/edit_bio_form.dart';
+import 'package:app/pages/home/views/settingsView/components/edit_interests.dart';
+import 'package:app/pages/home/views/settingsView/components/my_groups_button.dart';
+import 'package:app/pages/home/views/settingsView/components/upload_profile_photo_button.dart';
 import 'package:flutter/material.dart';
-
-import '../../../signin_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:app/pages/home/views/settingsView/components/logout_button.dart';
 
 /// Displays a list of Gardens.
-class SettingsView extends StatelessWidget {
+class SettingsView extends ConsumerWidget {
   const SettingsView({
     super.key,
   });
@@ -14,180 +17,30 @@ class SettingsView extends StatelessWidget {
   final String title = 'settings';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Column(
         children: [
           const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 55,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SigninView()),
-                    );
-                  },
-                  child: Text('Logout',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold, fontSize: 30)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 43.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SigninView()),
-                    );*/
-                  },
-                  child: Text('Upload Profile Photo',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                height: 100,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: TextField(
-                  maxLines: 3,
-                  minLines: 2,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                    ),
-                    filled: true,
-                    fillColor: Color.fromRGBO(38, 95, 70, 1.0),
-                    hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                    hintText: 'Enter New Bio',
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SigninView()),
-                    );*/
-                  },
-                  child: Text('Add or Delete Interests',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 43.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CreateGroup()),
-                    );
-                  },
-                  child: Text('Create Group',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 375,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  color: Color.fromRGBO(38, 95, 70, 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyGroups()),
-                    );
-                  },
-                  child: Text('My Groups',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                ),
-              ),
-            ],
+          const LogoutButton(),
+          Container(
+            height: 696,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 43.0),
+                  const ProfilePhotoButton(),
+                  const SizedBox(height: 20.0),
+                  EditBioForm(),
+                  const SizedBox(height: 30.0),
+                  EditInterests(),
+                  const SizedBox(height: 30.0),
+                  const CreateGroupButton(),
+                  const SizedBox(height: 10.0,),
+                  const MyGroupsButton(),
+                ],
+              )
+            ),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../data_model/user_db.dart';
 import 'components/classes_view.dart';
@@ -6,7 +7,7 @@ import 'components/groups_view.dart';
 
 
 /// Top-level Layout for all of the "Home" related
-class ProfileView extends StatefulWidget {
+class ProfileView extends ConsumerStatefulWidget {
   ProfileView({
     super.key,
   });
@@ -25,15 +26,17 @@ class ProfileView extends StatefulWidget {
   };
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
+  ConsumerState<ProfileView> createState() => _ProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
-  UserData user = userDB.getUser(currentUserID);
+class _ProfileViewState extends ConsumerState<ProfileView> {
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final UserDB userDB = ref.watch(userDBProvider);
+    final String currentUserID = ref.watch(currentUserIDProvider);
+    UserData user = userDB.getUser(currentUserID);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(12.0),

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+
+import '../data_model/user_db.dart';
 
 /// Presents the page containing fields to enter a username and password, plus buttons.
-class SigninView extends StatefulWidget {
-  const SigninView({Key? key}) : super(key: key);
+class SigninView extends ConsumerWidget {
+  SigninView({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
-  @override
-  State<SigninView> createState() => _SigninViewState();
-}
-
-class _SigninViewState extends State<SigninView> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -34,46 +33,32 @@ class _SigninViewState extends State<SigninView> {
             ),
             const SizedBox(height: 200.0),
             // [Name]
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                ),
-                filled: true,
-                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                hintText: '    email@hawaii.edu',
-              ),
-            ),
-
-            const SizedBox(height: 20.0),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                ),
-                filled: true,
-                fillColor: Color.fromRGBO(38, 95, 70, 1.0),
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                hintText: '    UHM Password',
+            FormBuilder(
+              key: _formKey,
+              // autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  FormBuilderTextField(
+                    name: 'email',
+                    decoration: _inputDecoration('    email@hawaii.edu'),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                      FormBuilderValidators.email(),
+                    ]),
+                  ),
+                  const SizedBox(height: 20),
+                  FormBuilderTextField(
+                    name: 'password',
+                    decoration: _inputDecoration('    UHM password'),
+                    obscureText: true,
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 40.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(width: 1.0),
                 ElevatedButton(
                     style: ButtonStyle(
                         shape:
@@ -82,11 +67,32 @@ class _SigninViewState extends State<SigninView> {
                       borderRadius: BorderRadius.circular(50.0),
                     ))),
                     onPressed: () {
-                      // Eventually: pushReplacementNamed
-                      Navigator.pushReplacementNamed(context, '/home');
+                      bool validEmailAndPassword =
+                          _formKey.currentState?.saveAndValidate() ?? false;
+                      UserDB userDB = ref.read(userDBProvider);
+
+                      if (validEmailAndPassword) {
+                        String email = _formKey.currentState?.value['email'];
+                        if (userDB.isUserEmail(email)) {
+                          ref.read(currentUserIDProvider.notifier).state =
+                              userDB.getUserID(email);
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Unknown User"),
+                            duration: Duration(seconds: 10),
+                          ));
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Invalid Email or Password.'),
+                          duration: Duration(seconds: 2),
+                        ));
+                      }
                     },
                     child: const Text('Enter')),
-                const SizedBox(width: 1.0),
               ],
             ),
           ],
@@ -94,4 +100,21 @@ class _SigninViewState extends State<SigninView> {
       ),
     );
   }
+}
+
+InputDecoration _inputDecoration(String hint) {
+  return InputDecoration(
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(50.0),
+      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(50.0),
+      borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+    ),
+    filled: true,
+    fillColor: Color.fromRGBO(38, 95, 70, 1.0),
+    hintStyle: TextStyle(color: Colors.grey[400]),
+    hintText: hint,
+  );
 }
