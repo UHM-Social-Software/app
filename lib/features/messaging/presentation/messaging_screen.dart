@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../application/messaging_service.dart';
 
 class MessagingScreen extends StatefulWidget {
 
@@ -12,21 +11,18 @@ class MessagingScreen extends StatefulWidget {
 }
 
 class _MessagingScreenState extends State<MessagingScreen> {
-  final FirebaseMessagingService _firebaseMessagingService = FirebaseMessagingService();
   final TextEditingController _messageController = TextEditingController();
   final List<String> _messages = [];
 
   @override
   void initState() {
     super.initState();
-    _firebaseMessagingService.initialize();
   }
 
   void _sendMessage() {
     final messageText = _messageController.text.trim();
     if (messageText.isNotEmpty) {
       // Send the message
-      _firebaseMessagingService.sendMessage(messageText);
       // Clear the input field
       _messageController.clear();
     }

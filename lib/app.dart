@@ -1,6 +1,5 @@
 import 'package:app/features/explore/presentation/explore_view.dart';
 import 'package:app/features/messaging/presentation/messaging_screen.dart';
-import 'package:app/features/messaging/application/messaging_service.dart';
 import 'package:app/features/class/presentation/class_page.dart';
 import 'package:app/features/group/presentation/create_group_page.dart';
 import 'package:app/features/group/presentation/edit_group_page.dart';
@@ -8,22 +7,24 @@ import 'package:app/features/group/presentation/view_group_page.dart';
 import 'package:app/features/group/presentation/owned_groups.dart';
 import 'package:app/features/user/presentation/profile_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'features/authentication/presentation/forgot_password_view.dart';
+import 'features/authentication/presentation/verify_email_view.dart';
 import 'features/home/presentation/home_view.dart';
 import 'features/authentication/presentation/signin_view.dart';
+import 'features/authentication/presentation/signin_view2.dart';
 import 'features/settings/presentation/settings_view.dart';
 
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  final FirebaseMessagingService _firebaseMessagingService = FirebaseMessagingService();
+class MyApp extends ConsumerWidget {
 
   MyApp({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    _firebaseMessagingService.initialize();
+  Widget build(BuildContext context, WidgetRef ref) {
     // Glue the SettingsController to the MaterialApp.
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
@@ -81,8 +82,12 @@ class MyApp extends StatelessWidget {
                 return const GroupPage(
                   groupID: '',
                 );
-              case SigninView.routeName:
-                return SigninView();
+              case SignInView2.routeName:
+                return SignInView2();
+              case ForgotPasswordView.routeName:
+                return ForgotPasswordView();
+              case VerifyEmailView.routeName:
+                return VerifyEmailView();
               default:
                 return SigninView();
             }

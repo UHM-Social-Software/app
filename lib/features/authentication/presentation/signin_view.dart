@@ -10,7 +10,7 @@ import '../../user/domain/user_db.dart';
 class SigninView extends ConsumerWidget {
   SigninView({Key? key}) : super(key: key);
 
-  static const routeName = '/';
+  static const routeName = '/signIn';
 
   final _formKey = GlobalKey<FormBuilderState>();
 
