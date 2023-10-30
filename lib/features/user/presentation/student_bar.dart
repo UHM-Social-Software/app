@@ -1,8 +1,11 @@
-import 'package:app/features/user/domain/user_db.dart';
+import 'package:app/features/user/domain/user.dart';
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/user_providers.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
 import 'profile_viewer_page.dart';
 
 /// Displays basic user info in a bar given a UserID
@@ -16,8 +19,21 @@ class StudentBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final UserDB userDB = ref.watch(userDBProvider);
-    final UserData student = userDB.getUser(userID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+              context: context,
+              users: allData.users,
+            ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+      required List<User> users}) {
+    final userCollection = UserCollection(users);
+    final User student = userCollection.getUser(userID);
 
     return Column(
       children: [
@@ -29,13 +45,13 @@ class StudentBar extends ConsumerWidget {
             color: Color.fromRGBO(38, 95, 70, 1.0),
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
-          child: MaterialButton (
+          child: MaterialButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => ProfileViewerPage(
-                    studentID: userID,
-                  )),
+                        studentID: userID,
+                      )),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,8 +72,10 @@ class StudentBar extends ConsumerWidget {
                     ),
                     const SizedBox(width: 30.0),
                     Text(student.name,
-                        style: const TextStyle( color: Colors.white,
-                            fontWeight: FontWeight.bold, fontSize: 20)),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
                     const SizedBox(width: 30.0),
                   ],
                 ),
@@ -65,7 +83,9 @@ class StudentBar extends ConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

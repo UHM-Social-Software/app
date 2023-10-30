@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/group_providers.dart';
-import '../domain/group_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../domain/group.dart';
+import '../domain/groups_collection.dart';
 import 'view_group_page.dart';
 
 /// Displays a group bar linked to its viewing page given a group ID.
@@ -14,9 +17,23 @@ class GroupBar extends ConsumerWidget {
   final String groupID;
 
   @override
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    GroupData group = groupDB.getGroup(groupID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          groups: allData.groups,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+        required List<Group> groups}) {
+    final groupCollection = GroupCollection(groups);
+    Group group = groupCollection.getGroup(groupID);
 
     return Column(
       children: [

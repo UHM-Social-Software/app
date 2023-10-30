@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../authentication/presentation/signin_view.dart';
+import '../../authentication/presentation/signin_view2.dart';
 
 /// Displays a button to return to the signin page.
 class LogoutButton extends ConsumerWidget {
@@ -26,7 +26,7 @@ class LogoutButton extends ConsumerWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SigninView()),
+                MaterialPageRoute(builder: (context) => SignInView2()),
               );
             },
             child: const Text('Logout',

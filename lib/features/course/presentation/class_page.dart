@@ -1,9 +1,11 @@
+import 'package:app/features/course/domain/course_collection.dart';
 import 'package:app/features/user/presentation/student_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/class_providers.dart';
-import '../domain/class_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
 
 /// Displays a list of Students in a class.
 class ClassPage extends ConsumerWidget {
@@ -17,8 +19,20 @@ class ClassPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ClassDB classDB = ref.watch(classDBProvider);
-    List<String> studentIDs = classDB.getStudentIDs(className);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          courses: allData.courses,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context, required courses}) {
+    final courseCollection = CourseCollection(courses);
+    List<String> studentIDs = courseCollection.getStudentIDs(className);
 
     return Scaffold(
       appBar: AppBar(

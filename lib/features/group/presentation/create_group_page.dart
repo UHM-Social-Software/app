@@ -1,10 +1,15 @@
-import 'package:app/features/group/domain/group_db.dart';
-import 'package:app/features/user/domain/user_db.dart';
+import 'package:app/features/group/domain/group.dart';
+import 'package:app/features/group/domain/groups_collection.dart';
+import 'package:app/features/user/domain/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../user/data/user_providers.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../../user/domain/user_collection.dart';
+import '../data/group_database.dart';
 import '../data/group_providers.dart';
 import 'owned_groups.dart';
 
@@ -23,17 +28,38 @@ class CreateGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          groups: allData.groups,
+          users: allData.users,
+          currentUserID: allData.currentUserID,
+          ref: ref,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+        required List<Group> groups, required List<User> users, required String currentUserID, required WidgetRef ref}) {
+    final groupCollection = GroupCollection(groups);
+    final userCollection = UserCollection(users);
 
     void createPressed() {
-      groupDB.createGroup(
+      int numGroups = groupCollection.size();
+      String id = 'group-${(numGroups + 1).toString().padLeft(3, '0')}';
+      Group group = Group(
+          imagePath: "assets/images/default_profile.png",
           name: _nameFieldKey.currentState?.value,
           description: _descriptionFieldKey.currentState?.value,
           upcomingEvents: _eventsFieldKey.currentState?.value,
-          ownerID: currentUserID);
-      userDB.getUser(currentUserID).groups = groupDB.getMyGroupIDs(currentUserID);
+          owner: currentUserID, id: id, membership: [currentUserID],
+      );
+      GroupDatabase groupDatabase = ref.watch(groupDatabaseProvider);
+      groupDatabase.setGroup(group);
+      userCollection.addGroup(currentUserID, group.id);
       Navigator.pushReplacementNamed(context, MyGroups.routeName);
     }
 

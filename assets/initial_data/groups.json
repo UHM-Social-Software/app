@@ -1,0 +1,64 @@
+[
+  {
+    "id": "group-001",
+    "name": "Chess Club",
+    "description": "We are a fun chess club!",
+    "upcomingEvents": "Oct 10th Round Robin Tournament",
+
+    "imagePath": "assets/images/default_profile.png",
+    "owner": "user-002",
+    "membership": [
+      "user-002",
+      "user-001",
+      "user-003"
+    ]
+  },
+  {
+    "id": "group-002",
+    "name": "Sailing Group",
+    "description": "We are a fun Sailing Group!",
+    "upcomingEvents": "Oct 20th: Learn About Knots",
+    "imagePath": "assets/images/default_profile.png",
+    "owner": "user-003",
+    "membership": [
+      "user-003",
+      "user-001"
+    ]
+  },
+  {
+    "id": "group-003",
+    "name": "UH Swim & Dive",
+    "description": "We are a Swimming and Diving Team at UH!",
+    "upcomingEvents": "USC, Santa Barbara, and UCSB @ USC October 13-14",
+    "imagePath": "assets/images/default_profile.png",
+    "owner": "user-001",
+    "membership": [
+      "user-002",
+      "user-001",
+      "user-003"
+    ]
+  },
+  {
+    "id": "group-004",
+    "name": "Group 4",
+    "description": "Group 4",
+    "upcomingEvents": "Cool stuff going on",
+    "imagePath": "assets/images/default_profile.png",
+    "owner": "user-001",
+    "membership": [
+      "user-001",
+      "user-003"
+    ]
+  },
+  {
+    "id": "group-005",
+    "name": "Group 5",
+    "description": "Group 5",
+    "upcomingEvents": "Very cool stuff going on",
+    "imagePath": "assets/images/default_profile.png",
+    "owner": "user-003",
+    "membership": [
+      "user-003"
+    ]
+  }
+]

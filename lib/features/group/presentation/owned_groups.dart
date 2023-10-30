@@ -1,10 +1,13 @@
+import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/group/presentation/edit_group_bar.dart';
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/group_providers.dart';
-import '../domain/group_db.dart';
-import '../../user/data/user_providers.dart';
-import '../../user/domain/user_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../domain/group.dart';
+import '../../user/domain/user.dart';
 
 /// Displays a list of groups for which the currently signed in user is the owner
 class MyGroups extends ConsumerWidget {
@@ -16,10 +19,28 @@ class MyGroups extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String currentUserID = ref.watch(currentUserIDProvider);
-    final UserDB userDB = ref.watch(userDBProvider);
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    List<String> groupIDs = groupDB.getMyGroupIDs(userDB.getUser(currentUserID).id);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+              context: context,
+              groups: allData.groups,
+              currentUserID: allData.currentUserID,
+              users: allData.users,
+            ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+      required List<Group> groups,
+      required String currentUserID,
+      required List<User> users}) {
+    final userCollection = UserCollection(users);
+    final groupCollection = GroupCollection(groups);
+
+    List<String> groupIDs =
+        groupCollection.getMyGroupIDs(userCollection.getUser(currentUserID).id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(38, 95, 70, 1.0),
@@ -49,7 +70,8 @@ class MyGroups extends ConsumerWidget {
                   children: [
                     Column(
                       children: [
-                        ...groupIDs.map((groupID) => EditGroupBar(groupID: groupID)),
+                        ...groupIDs
+                            .map((groupID) => EditGroupBar(groupID: groupID)),
                       ],
                     ),
                   ],

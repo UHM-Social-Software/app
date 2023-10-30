@@ -1,8 +1,11 @@
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/user_providers.dart';
-import '../domain/user_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../domain/user.dart';
 import '../../home/presentation/home_view.dart';
 
 /// Displays a form to edit the currently logged in user's bio.
@@ -15,8 +18,23 @@ class EditBioForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+            context: context,
+            currentUserID: allData.currentUserID,
+            users: allData.users),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build({
+    required BuildContext context,
+    required String currentUserID,
+    required List<User> users,
+  }) {
+    final userCollection = UserCollection(users);
+    User activeUser = userCollection.getUser(currentUserID);
 
     return Column(
       children: [
@@ -50,7 +68,7 @@ class EditBioForm extends ConsumerWidget {
                   filled: true,
                   fillColor: const Color.fromRGBO(38, 95, 70, 1.0),
                   hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                  hintText: userDB.getBio(currentUserID),
+                  hintText: userCollection.getBio(currentUserID),
                 ),
               ),
             ),
@@ -72,7 +90,7 @@ class EditBioForm extends ConsumerWidget {
               child: MaterialButton(
                 onPressed: () {
                   String newBio = _bioFormKey.currentState?.value;
-                  userDB.updateUserBio(currentUserID, newBio);
+                  activeUser = activeUser.copyWith(bio: newBio);
                   Navigator.pushReplacementNamed(context, HomeView.routeName);
                 },
                 child: const Text('Save New Bio',

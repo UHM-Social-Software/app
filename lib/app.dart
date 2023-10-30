@@ -1,6 +1,6 @@
 import 'package:app/features/explore/presentation/explore_view.dart';
 import 'package:app/features/messaging/presentation/messaging_screen.dart';
-import 'package:app/features/class/presentation/class_page.dart';
+import 'package:app/features/course/presentation/class_page.dart';
 import 'package:app/features/group/presentation/create_group_page.dart';
 import 'package:app/features/group/presentation/edit_group_page.dart';
 import 'package:app/features/group/presentation/view_group_page.dart';
@@ -11,8 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/authentication/presentation/forgot_password_view.dart';
 import 'features/authentication/presentation/verify_email_view.dart';
 import 'features/home/presentation/home_view.dart';
-import 'features/authentication/presentation/signin_view.dart';
 import 'features/authentication/presentation/signin_view2.dart';
+import 'features/page_not_found_view.dart';
 import 'features/settings/presentation/settings_view.dart';
 
 
@@ -89,7 +89,7 @@ class MyApp extends ConsumerWidget {
               case VerifyEmailView.routeName:
                 return VerifyEmailView();
               default:
-                return SigninView();
+                return PageNotFoundView();
             }
           },
         );

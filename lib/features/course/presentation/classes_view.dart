@@ -1,21 +1,19 @@
+import 'package:app/features/course/presentation/class_bar.dart';
+import 'package:app/features/user/domain/user.dart';
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
 import '../../all_data_provider.dart';
-import '../../user/domain/user.dart';
-import '../../user/domain/user_collection.dart';
-import 'view_group_bar.dart';
 
-/// Display a list of groups for which the given studentID is a member
-class GroupsViewerPage extends ConsumerWidget {
-  const GroupsViewerPage({
+/// Displays a list of classes that the current user is in.
+class ClassesView extends ConsumerWidget {
+  const ClassesView({
     super.key,
-    required this.studentID,
   });
 
-  final String title = 'GroupsViewerPage';
-  final String studentID;
+  final String title = 'classesView';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,16 +22,17 @@ class GroupsViewerPage extends ConsumerWidget {
         data: (allData) => _build(
           context: context,
           users: allData.users,
+          currentUserID: allData.currentUserID,
         ),
         loading: () => const AGCLoading(),
         error: (error, st) => AGCError(error.toString(), st.toString()));
   }
 
   Widget _build(
-      {required BuildContext context,
-        required List<User> users}) {
+      {required BuildContext context, required String currentUserID, required List<User> users}) {
     final userCollection = UserCollection(users);
-    List<String> groupIDs = userCollection.getUserGroups(studentID);
+    User user = userCollection.getUser(currentUserID);
+    List<String> classNames = user.classes;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -42,7 +41,7 @@ class GroupsViewerPage extends ConsumerWidget {
           children: [
             Column(
               children: [
-                ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
+                ...classNames.map((className) => ClassBar(className: className))
               ],
             ),
           ],

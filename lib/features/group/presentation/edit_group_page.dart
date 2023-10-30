@@ -2,10 +2,14 @@ import 'package:app/features/home/presentation/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/group_providers.dart';
-import '../domain/group_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../../user/domain/user_collection.dart';
+import '../domain/group.dart';
 import '../../user/data/user_providers.dart';
-import '../../user/domain/user_db.dart';
+import '../../user/domain/user.dart';
+import '../domain/groups_collection.dart';
 
 /// Displays a form for editing an existing group.
 class EditGroup extends ConsumerWidget {
@@ -22,20 +26,33 @@ class EditGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    GroupData group = groupDB.getGroup(groupID);
-    List<String> memberIDs = groupDB.getMembers(groupID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          groups: allData.groups,
+          users: allData.users,
+          currentUserID: allData.currentUserID,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
 
-    final UserDB userDB = ref.watch(userDBProvider);
-    List<String> memberNames = userDB.getUserNames(memberIDs);
+  Widget _build(
+      {required BuildContext context,
+        required List<Group> groups,
+        required List<User> users, required String currentUserID}
+  ) {
+    final userCollection = UserCollection(users);
+    final groupCollection = GroupCollection(groups);
+    Group group = groupCollection.getGroup(groupID);
+    List<String> memberIDs = groupCollection.getMembers(groupID);
+    List<String> memberNames = userCollection.getUserNames(memberIDs);
 
     void savePressed() {
-      // update groupDB
-      groupDB.updateGroup(
-          groupID,
-          _descriptionFieldKey.currentState?.value ?? group.description,
-          _eventsFieldKey.currentState?.value ?? group.upcomingEvents
-      );
+      String newDescription = _descriptionFieldKey.currentState?.value ?? group.description;
+      String newEvents = _eventsFieldKey.currentState?.value ?? group.upcomingEvents;
+      group = group.copyWith(description: newDescription, upcomingEvents: newEvents);
       Navigator.pushReplacementNamed(context, HomeView.routeName);
     }
 
@@ -214,7 +231,7 @@ class EditGroup extends ConsumerWidget {
                             children: [
                               Column(
                                 children: [
-                                  ...memberNames.map((name) => _MemberBar(name: name, groupID: groupID))
+                                  ...memberNames.map((name) => _MemberBar(name: name, groupID: groupID, userCollection: userCollection, groupCollection: groupCollection, currentUserID: currentUserID))
                                 ],
                               ),
                             ],
@@ -236,23 +253,24 @@ class EditGroup extends ConsumerWidget {
 
 /// Displays a delete bar for a given group member name and groupID.
 class _MemberBar extends ConsumerWidget {
-  const _MemberBar({
+  _MemberBar({
     required this.name,
-    required this.groupID,
+    required this.groupID, required this.userCollection, required  this.groupCollection, required this.currentUserID,
   });
 
   final String name;
   final String groupID;
+  UserCollection userCollection;
+  GroupCollection groupCollection;
+  final String currentUserID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String currentUserID = ref.watch(currentUserIDProvider);
-    final UserDB userDB = ref.watch(userDBProvider);
 
     void removeMember(String name){
-      final GroupDB groupDB = ref.watch(groupDBProvider);
-      userDB.removeGroup(userDB.getUserIDWithName(name), groupID);
-      groupDB.removeMember(userDB.getUserIDWithName(name), groupID);
+      userCollection.removeGroup(userCollection.getUserIDWithName(name), groupID);
+      groupCollection.removeMember(userCollection.getUserIDWithName(name), groupID);
       Navigator.pop(context);
     }
 
@@ -288,7 +306,7 @@ class _MemberBar extends ConsumerWidget {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    if(currentUserID == userDB.getUserIDWithName(name)){
+                    if(currentUserID == userCollection.getUserIDWithName(name)){
                       ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
                         content: Text("Cannot Remove Owner"),

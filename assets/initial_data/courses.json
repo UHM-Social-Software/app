@@ -1,0 +1,54 @@
+[
+  {
+    "name": "ICS 491",
+    "students": [
+      "user-001",
+      "user-002",
+      "user-003"
+    ]
+  },
+  {
+    "name": "ICS 691D",
+    "students": [
+      "user-001"
+    ]
+  },
+  {
+    "name": "ICS 691E",
+    "students": [
+      "user-001"
+    ]
+  },
+  {
+    "name": "ICS 690",
+    "students": [
+      "user-001"
+    ]
+  },
+  {
+    "name": "ICS 622",
+    "students": [
+      "user-001",
+      "user-002"
+    ]
+  },
+  {
+    "name": "ICS 613",
+    "students": [
+      "user-001",
+      "user-002"
+    ]
+  },
+  {
+    "name": "ICS 314",
+    "students": [
+      "user-003"
+    ]
+  },
+  {
+    "name": "ICS 311",
+    "students": [
+      "user-003"
+    ]
+  }
+]

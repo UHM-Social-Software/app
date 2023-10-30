@@ -1,10 +1,16 @@
+import 'package:app/features/group/domain/groups_collection.dart';
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/group_providers.dart';
-import '../domain/group_db.dart';
-import '../../user/data/user_providers.dart';
-import '../../user/domain/user_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../../global_snackbar.dart';
+import '../../user/presentation/edit_user_controller.dart';
+import '../domain/group.dart';
+import '../../user/domain/user.dart';
+import 'edit_group_controller.dart';
 
 /// Displays group home page given a group ID.
 class GroupPage extends ConsumerWidget {
@@ -18,10 +24,71 @@ class GroupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
-    GroupData group = groupDB.getGroup(groupID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          currentUserID: allData.currentUserID,
+          users: allData.users,
+          groups: allData.groups,
+          ref: ref,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+        required List<User> users,
+        required String currentUserID, required List<Group> groups, required WidgetRef ref}) {
+    final groupCollection = GroupCollection(groups);
+    final userCollection = UserCollection(users);
+    Group group = groupCollection.getGroup(groupID);
+
+    void joinGroup(){
+      List<String> newMembership = [];
+      for (var member in group.membership){
+        newMembership.add(member);
+      }
+      newMembership.add(currentUserID);
+      Group updatedGroup = Group(
+        id: groupID,
+        name: group.name,
+        description: group.description,
+        upcomingEvents: group.name,
+        imagePath: group.imagePath,
+        owner: group.owner,
+        membership: newMembership,
+      );
+      ref.read(editGroupControllerProvider.notifier).updateGroup(
+        group: updatedGroup,
+        onSuccess: () {
+        },
+      );
+      User user = userCollection.getUser(currentUserID);
+      List<String> newUserGroups = [];
+      for (var group in user.groups){
+        newUserGroups.add(group);
+      }
+      newUserGroups.add(groupID);
+      User updatedUser = User(
+        id: currentUserID,
+        name: user.name,
+        bio: user.bio,
+        classes: user.classes,
+        imagePath: user.imagePath,
+        interests: user.interests,
+        email: user.email,
+        groups: newUserGroups,
+      );
+      ref.read(editUserControllerProvider.notifier).updateUser(
+        user: updatedUser,
+        onSuccess: () {
+          GlobalSnackBar.show('Group joined!');
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(38, 95, 70, 1.0),
@@ -158,9 +225,8 @@ class GroupPage extends ConsumerWidget {
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                      if(!groupDB.getMembers(groupID).contains(currentUserID)){
-                        groupDB.addMember(currentUserID, groupID);
-                        userDB.addGroup(currentUserID, groupID);
+                      if(!groupCollection.getMembers(groupID).contains(currentUserID)){
+                        joinGroup();
                         Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context)

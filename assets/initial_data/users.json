@@ -1,0 +1,69 @@
+[
+  {
+    "id": "user-001",
+    "name": "Justin Lisoway",
+    "email": "jlisoway@hawaii.edu",
+    "bio": "I am a student at UH!!!",
+    "classes": [
+      "ICS 491",
+      "ICS 691D",
+      "ICS 691E",
+      "ICS 690",
+      "ICS 622",
+      "ICS 613"
+    ],
+    "interests": [
+      "swimming",
+      "ICS",
+      "finance"
+    ],
+    "groups": [
+      "group-001",
+      "group-002",
+      "group-003",
+      "group-004"
+    ],
+    "imagePath": "assets/images/user-001-profile.png"
+  },
+  {
+    "id": "user-002",
+    "name": "Bob McDonald",
+    "email": "bMacs@hawaii.edu",
+    "bio": "This is my bio",
+    "classes": [
+      "ICS 491",
+      "ICS 314",
+      "ICS 311"
+    ],
+    "interests": [
+      "ICS"
+    ],
+    "groups": [
+      "group-001",
+      "group-003"
+    ],
+    "imagePath": "assets/images/default_profile.png"
+  },
+  {
+    "id": "user-003",
+    "name": "Donny Boy",
+    "email": "DBoy@hawaii.edu",
+    "bio": "I really like food",
+    "classes": [
+      "ICS 491",
+      "ICS 622",
+      "ICS 613"
+    ],
+    "interests": [
+      "finance"
+    ],
+    "groups": [
+      "group-001",
+      "group-002",
+      "group-003",
+      "group-004",
+      "group-005"
+    ],
+    "imagePath": "assets/images/default_profile.png"
+  }
+]

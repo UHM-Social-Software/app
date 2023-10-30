@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-import '../data/class_providers.dart';
-import '../domain/class_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../domain/course.dart';
+import '../domain/course_collection.dart';
 import 'class_page.dart';
 
 /// Displays a class item given its class name.
@@ -17,8 +20,21 @@ class ClassBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ClassDB classDB = ref.watch(classDBProvider);
-    ClassData currentClass = classDB.getClass(className);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          courses: allData.courses,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+        required List<Course> courses}) {
+    final courseCollection = CourseCollection(courses);
+    Course currentClass = courseCollection.getCourse(className);
 
     return Column(
       children: [

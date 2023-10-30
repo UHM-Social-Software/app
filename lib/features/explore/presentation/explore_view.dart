@@ -1,8 +1,11 @@
 import 'package:app/features/explore/presentation/explore_group_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../group/data/group_providers.dart';
-import '../../group/domain/group_db.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../../group/domain/group.dart';
+import '../../group/domain/groups_collection.dart';
 
 /// Displays a list of groups in the database.
 class ExploreView extends ConsumerWidget {
@@ -15,8 +18,21 @@ class ExploreView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GroupDB groupDB = ref.watch(groupDBProvider);
-    List<String> groupIDs = groupDB.getGroupIDs();
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+          context: context,
+          groups: allData.groups,
+        ),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build(
+      {required BuildContext context,
+        required List<Group> groups}) {
+    final groupCollection = GroupCollection(groups);
+    List<String> groupIDs = groupCollection.getGroupIDs();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

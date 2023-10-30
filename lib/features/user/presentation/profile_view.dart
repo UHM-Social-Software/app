@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/user_providers.dart';
-import '../domain/user_db.dart';
-import '../../class/presentation/classes_view.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../domain/user.dart';
+import '../../course/presentation/classes_view.dart';
 import '../../group/presentation/groups_view.dart';
-
+import '../domain/user_collection.dart';
 
 /// Middle-level Layout for the profile view, shows either classes or groups for currently signin user
 class ProfileView extends ConsumerStatefulWidget {
@@ -35,9 +37,23 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    final UserDB userDB = ref.watch(userDBProvider);
-    final String currentUserID = ref.watch(currentUserIDProvider);
-    UserData user = userDB.getUser(currentUserID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+            context: context,
+            currentUserID: allData.currentUserID,
+            users: allData.users),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build({
+    required BuildContext context,
+    required String currentUserID,
+    required List<User> users,
+  }) {
+    final userCollection = UserCollection(users);
+    User user = userCollection.getUser(currentUserID);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(12.0),
@@ -53,9 +69,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(
-                          user.imagePath != null ? user.imagePath.toString() : 'assets/images/default_profile.png'
-                      ),
+                      image: AssetImage(user.imagePath != null
+                          ? user.imagePath.toString()
+                          : 'assets/images/default_profile.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -92,7 +108,8 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(38, 95, 70, 1.0),
                         border: Border.all(color: Colors.white),
-                        borderRadius: const BorderRadius.all(Radius.circular(12)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
                       ),
                       child: MaterialButton(
                         onPressed: () {
@@ -124,8 +141,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(
-                          user.bio != null ? user.bio.toString() : '',
+                      child: Text(user.bio != null ? user.bio.toString() : '',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
@@ -148,7 +164,10 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                         color: Color.fromRGBO(38, 95, 70, 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Text(user.interests != null ? user.interests.toString() : '',
+                      child: Text(
+                          user.interests != null
+                              ? user.interests.toString()
+                              : '',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                     ),

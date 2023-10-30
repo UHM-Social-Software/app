@@ -1,9 +1,12 @@
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/user_providers.dart';
-import '../domain/user_db.dart';
-import '../../class/presentation/classes_viewer_page.dart';
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
+import '../../course/presentation/classes_viewer_page.dart';
 import '../../group/presentation/groups_viewer_page.dart';
+import '../domain/user.dart';
 
 
 /// Middle-level Layout for the profile viewer, shows either classes or groups for the given userID
@@ -37,8 +40,21 @@ class _ProfileViewerPageState extends ConsumerState<ProfileViewerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final UserDB userDB = ref.watch(userDBProvider);
-    UserData user = userDB.getUser(studentID);
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) => _build(
+            context: context,
+            users: allData.users),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build({
+    required BuildContext context,
+    required List<User> users,
+  }) {
+    final userCollection = UserCollection(users);
+    User user = userCollection.getUser(studentID);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(38, 95, 70, 1.0),
