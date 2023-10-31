@@ -114,7 +114,7 @@ class EditBioForm extends ConsumerWidget {
               child: MaterialButton(
                 onPressed: () {
                   updateBio();
-                  Navigator.pushReplacementNamed(context, HomeView.routeName);
+                  // Navigator.pushReplacementNamed(context, HomeView.routeName);
                 },
                 child: const Text('Save New Bio',
                     style: TextStyle(

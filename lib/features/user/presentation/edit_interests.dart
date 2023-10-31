@@ -134,7 +134,7 @@ class EditInterests extends ConsumerWidget {
                         child: MaterialButton(
                           onPressed: () {
                             addInterest();
-                            Navigator.pushReplacementNamed(context, HomeView.routeName);
+                            // Navigator.pushReplacementNamed(context, HomeView.routeName);
                           },
                           child: const Text('Add',
                               style: TextStyle(
@@ -193,7 +193,7 @@ class _InterestBar extends ConsumerWidget {
           GlobalSnackBar.show('Removed Interest!');
         },
       );
-      Navigator.pushReplacementNamed(context, HomeView.routeName);
+      //Navigator.pushReplacementNamed(context, HomeView.routeName);
     }
 
     return Column(

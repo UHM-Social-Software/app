@@ -227,7 +227,7 @@ class GroupPage extends ConsumerWidget {
                     onPressed: () {
                       if(!groupCollection.getMembers(groupID).contains(currentUserID)){
                         joinGroup();
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
