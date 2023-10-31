@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
 import '../../all_data_provider.dart';
+import '../../global_snackbar.dart';
 import '../../user/domain/user_collection.dart';
+import '../../user/presentation/edit_user_controller.dart';
 import '../data/group_database.dart';
 import '../data/group_providers.dart';
 import 'owned_groups.dart';
@@ -47,6 +49,31 @@ class CreateGroup extends ConsumerWidget {
     final groupCollection = GroupCollection(groups);
     final userCollection = UserCollection(users);
 
+    void addGroupToCurrentUserGroups(Group group){
+      List<String> updatedGroups = [];
+      User currentUser = userCollection.getUser(currentUserID);
+        for (var groupID in currentUser.groups){
+          updatedGroups.add(groupID);
+        }
+      updatedGroups.add(group.id);
+      User updatedUser = User(
+        id: currentUserID,
+        name: currentUser.name,
+        interests: currentUser.interests,
+        groups: updatedGroups,
+        email: currentUser.email,
+        classes: currentUser.classes,
+        imagePath: currentUser.imagePath,
+        bio: currentUser.bio,
+      );
+      ref.read(editUserControllerProvider.notifier).updateUser(
+        user: updatedUser,
+        onSuccess: () {
+          GlobalSnackBar.show('Added Group!');
+        },
+      );
+    }
+
     void createPressed() {
       int numGroups = groupCollection.size();
       String id = 'group-${(numGroups + 1).toString().padLeft(3, '0')}';
@@ -59,7 +86,7 @@ class CreateGroup extends ConsumerWidget {
       );
       GroupDatabase groupDatabase = ref.watch(groupDatabaseProvider);
       groupDatabase.setGroup(group);
-      userCollection.addGroup(currentUserID, group.id);
+      addGroupToCurrentUserGroups(group);
       Navigator.pushReplacementNamed(context, MyGroups.routeName);
     }
 

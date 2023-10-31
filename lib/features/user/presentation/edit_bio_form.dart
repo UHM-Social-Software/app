@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
 import '../../all_data_provider.dart';
+import '../../global_snackbar.dart';
 import '../domain/user.dart';
 import '../../home/presentation/home_view.dart';
+import 'edit_user_controller.dart';
 
 /// Displays a form to edit the currently logged in user's bio.
 class EditBioForm extends ConsumerWidget {
@@ -23,7 +25,9 @@ class EditBioForm extends ConsumerWidget {
         data: (allData) => _build(
             context: context,
             currentUserID: allData.currentUserID,
-            users: allData.users),
+            users: allData.users,
+          ref: ref,
+        ),
         loading: () => const AGCLoading(),
         error: (error, st) => AGCError(error.toString(), st.toString()));
   }
@@ -31,10 +35,30 @@ class EditBioForm extends ConsumerWidget {
   Widget _build({
     required BuildContext context,
     required String currentUserID,
-    required List<User> users,
+    required List<User> users, required WidgetRef ref,
   }) {
     final userCollection = UserCollection(users);
-    User activeUser = userCollection.getUser(currentUserID);
+    User currentUser = userCollection.getUser(currentUserID);
+
+    void updateBio(){
+      String newBio = _bioFormKey.currentState?.value;
+      User updatedUser = User(
+        id: currentUserID,
+        name: currentUser.name,
+        interests: currentUser.interests,
+        groups: currentUser.groups,
+        email: currentUser.email,
+        classes: currentUser.classes,
+        imagePath: currentUser.imagePath,
+        bio: newBio,
+      );
+      ref.read(editUserControllerProvider.notifier).updateUser(
+        user: updatedUser,
+        onSuccess: () {
+          GlobalSnackBar.show('Updated Bio!');
+        },
+      );
+    }
 
     return Column(
       children: [
@@ -89,8 +113,7 @@ class EditBioForm extends ConsumerWidget {
               ),
               child: MaterialButton(
                 onPressed: () {
-                  String newBio = _bioFormKey.currentState?.value;
-                  activeUser = activeUser.copyWith(bio: newBio);
+                  updateBio();
                   Navigator.pushReplacementNamed(context, HomeView.routeName);
                 },
                 child: const Text('Save New Bio',

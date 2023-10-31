@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
 import '../../all_data_provider.dart';
+import '../../global_snackbar.dart';
 import '../domain/user.dart';
 import '../../home/presentation/home_view.dart';
+import 'edit_user_controller.dart';
 
 /// Displays a list of interests and options to add/delete them for the currently signed in user.
 class EditInterests extends ConsumerWidget {
@@ -23,7 +25,8 @@ class EditInterests extends ConsumerWidget {
         data: (allData) => _build(
             context: context,
             currentUserID: allData.currentUserID,
-            users: allData.users),
+            users: allData.users,
+          ref: ref),
         loading: () => const AGCLoading(),
         error: (error, st) => AGCError(error.toString(), st.toString()));
   }
@@ -31,10 +34,37 @@ class EditInterests extends ConsumerWidget {
   Widget _build({
     required BuildContext context,
     required String currentUserID,
-    required List<User> users,
+    required List<User> users, required WidgetRef ref,
   }) {
     final userCollection = UserCollection(users);
     List<String>? interests = userCollection.getUser(currentUserID).interests;
+    User currentUser = userCollection.getUser(currentUserID);
+
+    void addInterest(){
+      List<String> updatedInterests = [];
+      if (currentUser.interests != Null){
+        for (var interest in currentUser.interests!){
+          updatedInterests.add(interest);
+        }
+      }
+      updatedInterests.add(_interestsFormKey.currentState?.value);
+      User updatedUser = User(
+        id: currentUserID,
+        name: currentUser.name,
+        interests: updatedInterests,
+        groups: currentUser.groups,
+        email: currentUser.email,
+        classes: currentUser.classes,
+        imagePath: currentUser.imagePath,
+        bio: currentUser.bio,
+      );
+      ref.read(editUserControllerProvider.notifier).updateUser(
+        user: updatedUser,
+        onSuccess: () {
+          GlobalSnackBar.show('Edited Interests!');
+        },
+      );
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -103,8 +133,7 @@ class EditInterests extends ConsumerWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            String newInterest = _interestsFormKey.currentState?.value;
-                            userCollection.addUserInterest(currentUserID, newInterest);
+                            addInterest();
                             Navigator.pushReplacementNamed(context, HomeView.routeName);
                           },
                           child: const Text('Add',
@@ -139,8 +168,31 @@ class _InterestBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    User currentUser = userCollection.getUser(currentUserID);
+
     void deleteInterest(String interestName){
-      userCollection.removeUserInterest(currentUserID, interestName);
+      List<String> updatedInterests = [];
+      for (var interest in currentUser.interests!){
+        if(interest != interestName){
+          updatedInterests.add(interest);
+        }
+      }
+      User updatedUser = User(
+        id: currentUserID,
+        name: currentUser.name,
+        interests: updatedInterests,
+        groups: currentUser.groups,
+        email: currentUser.email,
+        classes: currentUser.classes,
+        imagePath: currentUser.imagePath,
+        bio: currentUser.bio,
+      );
+      ref.read(editUserControllerProvider.notifier).updateUser(
+        user: updatedUser,
+        onSuccess: () {
+          GlobalSnackBar.show('Removed Interest!');
+        },
+      );
       Navigator.pushReplacementNamed(context, HomeView.routeName);
     }
 

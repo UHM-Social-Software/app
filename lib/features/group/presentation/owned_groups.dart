@@ -1,6 +1,5 @@
 import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/group/presentation/edit_group_bar.dart';
-import 'package:app/features/user/domain/user_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
@@ -36,11 +35,10 @@ class MyGroups extends ConsumerWidget {
       required List<Group> groups,
       required String currentUserID,
       required List<User> users}) {
-    final userCollection = UserCollection(users);
     final groupCollection = GroupCollection(groups);
 
     List<String> groupIDs =
-        groupCollection.getMyGroupIDs(userCollection.getUser(currentUserID).id);
+        groupCollection.getMyGroupIDs(currentUserID);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(38, 95, 70, 1.0),
