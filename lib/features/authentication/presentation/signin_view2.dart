@@ -1,19 +1,40 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' hide ForgotPasswordView;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../agc_error.dart';
+import '../../../agc_loading.dart';
+import '../../all_data_provider.dart';
 import '../../home/presentation/home_view.dart';
+import '../../user/domain/user.dart';
+import '../../user/presentation/edit_user_controller.dart';
 import 'decorations.dart';
 import 'forgot_password_view.dart';
 import 'verify_email_view.dart';
 
 /// Builds the page containing fields to enter a username and password, plus buttons.
-class SignInView2 extends StatelessWidget {
+class SignInView2 extends ConsumerWidget {
   const SignInView2({Key? key}) : super(key: key);
 
   static const routeName = '/';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AsyncValue<AllData> asyncAllData = ref.watch(allDataProvider);
+    return asyncAllData.when(
+        data: (allData) =>
+            _build(
+              context: context,
+              users: allData.users,
+              ref: ref,),
+        loading: () => const AGCLoading(),
+        error: (error, st) => AGCError(error.toString(), st.toString()));
+  }
+
+  Widget _build({
+    required BuildContext context,
+    required List<User> users, required WidgetRef ref,
+  }) {
     return SignInScreen(
       actions: [
         ForgotPasswordAction((context, email) {
@@ -32,9 +53,24 @@ class SignInView2 extends StatelessWidget {
         }),
         AuthStateChangeAction<UserCreated>((context, state) {
           if (!state.credential.user!.emailVerified) {
-            Navigator.pushNamed(context, VerifyEmailView.routeName);
+            String email = state.credential.user?.email ?? '';
+            String id = state.credential.user?.uid ?? '';
+            User newUser = User(
+                id: id,
+                bio: "",
+                name: email,
+                email: email,
+                classes: [],
+                groups: [],
+                imagePath: 'assets/images/user-001-profile.png',
+                interests: []);
+            ref.read(editUserControllerProvider.notifier).updateUser(
+              user: newUser,
+              onSuccess: () {},
+            );
+          Navigator.pushNamed(context, VerifyEmailView.routeName);
           } else {
-            Navigator.pushReplacementNamed(context, HomeView.routeName);
+          Navigator.pushReplacementNamed(context, HomeView.routeName);
           }
         }),
         AuthStateChangeAction<CredentialLinked>((context, state) {

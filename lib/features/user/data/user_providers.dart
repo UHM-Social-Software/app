@@ -21,9 +21,10 @@ final userDBProvider = Provider<UserDB>((ref) {
 
 @riverpod
 String currentUserID(CurrentUserIDRef ref) {
-  //final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
-  //return instance.currentUser!.email!;
-  return 'user-001';
+  final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
+  print(instance.currentUser?.uid);
+  return instance.currentUser!.uid;
+  //return 'user-001';
 }
 
 /*
