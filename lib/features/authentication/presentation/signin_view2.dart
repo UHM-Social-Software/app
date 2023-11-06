@@ -1,3 +1,4 @@
+import 'package:app/features/user/domain/user_collection.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' hide ForgotPasswordView;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +36,7 @@ class SignInView2 extends ConsumerWidget {
     required BuildContext context,
     required List<User> users, required WidgetRef ref,
   }) {
+    final userCollection = UserCollection(users);
     return SignInScreen(
       actions: [
         ForgotPasswordAction((context, email) {
@@ -55,15 +57,33 @@ class SignInView2 extends ConsumerWidget {
           if (!state.credential.user!.emailVerified) {
             String email = state.credential.user?.email ?? '';
             String id = state.credential.user?.uid ?? '';
-            User newUser = User(
-                id: id,
-                bio: "",
-                name: email,
-                email: email,
-                classes: [],
-                groups: [],
-                imagePath: 'assets/images/user-001-profile.png',
-                interests: []);
+            User newUser;
+            if(userCollection.isUserEmail(email)) {
+              User existingUserData = userCollection.getUser(userCollection.getUserID(email));
+              newUser = User(
+                  id: id,
+                  bio: existingUserData.bio,
+                  name: existingUserData.name,
+                  email: email,
+                  classes: existingUserData.classes,
+                  groups: existingUserData.groups,
+                  imagePath: existingUserData.imagePath,
+                  interests: existingUserData.interests);
+              ref.read(editUserControllerProvider.notifier).deleteUser(
+                user: existingUserData,
+                onSuccess: () {},
+              );
+            } else {
+              newUser = User(
+                  id: id,
+                  bio: "",
+                  name: email,
+                  email: email,
+                  classes: [],
+                  groups: [],
+                  imagePath: 'assets/images/user-001-profile.png',
+                  interests: []);
+            }
             ref.read(editUserControllerProvider.notifier).updateUser(
               user: newUser,
               onSuccess: () {},
