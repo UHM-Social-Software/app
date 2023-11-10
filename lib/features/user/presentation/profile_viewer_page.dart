@@ -74,9 +74,7 @@ class _ProfileViewerPageState extends ConsumerState<ProfileViewerPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(
-                          user.imagePath != null ? user.imagePath.toString() : 'assets/images/default_profile.png'
-                      ),
+                      image: user.imagePath.toString() == "assets/images/default_profile.png" ? AssetImage(user.imagePath.toString()) : NetworkImage(user.imagePath.toString()) as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),

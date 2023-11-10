@@ -108,7 +108,7 @@ class GroupPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(group.imagePath.toString()),
+                      image: group.imagePath.toString() == "assets/images/default_profile.png" ? AssetImage(group.imagePath.toString()) : NetworkImage(group.imagePath.toString()) as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),

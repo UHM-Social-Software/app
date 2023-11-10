@@ -65,11 +65,9 @@ class SearchResultBar extends ConsumerWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(group.imagePath != null
-                    ? group.imagePath.toString()
-                    : 'assets/images/default_profile.png'),
+                image: group.imagePath.toString() == "assets/images/default_profile.png" ? AssetImage(group.imagePath.toString()) : NetworkImage(group.imagePath.toString()) as ImageProvider,
                 fit: BoxFit.cover,
-              ),
+              )
             ),
           ),
           onTap: () {
@@ -101,9 +99,7 @@ class SearchResultBar extends ConsumerWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(user.imagePath != null
-                    ? user.imagePath.toString()
-                    : 'assets/images/default_profile.png'),
+                image: user.imagePath.toString() == "assets/images/default_profile.png" ? AssetImage(user.imagePath.toString()) : NetworkImage(user.imagePath.toString()) as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),

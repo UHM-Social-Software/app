@@ -1,9 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:app/features/home/presentation/home_view.dart';
+import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
+import '../../../repositories/add_data.dart';
 import '../../all_data_provider.dart';
 import '../../global_snackbar.dart';
 import '../../user/domain/user_collection.dart';
@@ -13,6 +18,7 @@ import '../../user/data/user_providers.dart';
 import '../../user/domain/user.dart';
 import '../domain/groups_collection.dart';
 import 'edit_group_controller.dart';
+import 'package:app/utils.dart';
 
 /// Displays a form for editing an existing group.
 class EditGroup extends ConsumerWidget {
@@ -52,6 +58,14 @@ class EditGroup extends ConsumerWidget {
     Group group = groupCollection.getGroup(groupID);
     List<String> memberIDs = groupCollection.getMembers(groupID);
     List<String> memberNames = userCollection.getUserNames(memberIDs);
+
+    Uint8List? _image;
+
+
+    void selectImage() async {
+      _image = await pickImage(ImageSource.gallery);
+      String resp = await StoreData().saveGroupImage(file: _image!, group: group, ref: ref);
+    }
 
     void savePressed() {
       String newDescription = _descriptionFieldKey.currentState?.value ?? group.description;
@@ -97,9 +111,7 @@ class EditGroup extends ConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: MaterialButton(
-                        onPressed: () {
-                          // not implemented yet
-                        },
+                        onPressed: selectImage,
                         child: const Text('Upload New Club/Group Image',
                             style: TextStyle(
                                 color: Colors.white,

@@ -65,7 +65,7 @@ class StudentBar extends ConsumerWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: AssetImage(student.imagePath.toString()),
+                          image: student.imagePath.toString() == "assets/images/default_profile.png" ? AssetImage(student.imagePath.toString()) : NetworkImage(student.imagePath.toString()) as ImageProvider,
                           fit: BoxFit.cover,
                         ),
                       ),
