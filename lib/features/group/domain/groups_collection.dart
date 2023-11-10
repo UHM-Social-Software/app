@@ -17,6 +17,10 @@ class GroupCollection {
     return groupIDs;
   }
 
+  String getIDFromName(String name) {
+    return _groups.firstWhere((groupData) => groupData.name == name).id;
+  }
+
   int size() {
     return _groups.length;
   }
@@ -46,5 +50,13 @@ class GroupCollection {
 
   void addMember(String userID, String groupID){
     _groups.firstWhere((groupData) => groupData.id == groupID).membership.add(userID);
+  }
+
+  List<String> getNames() {
+    List<String> names = [];
+    for(Group group in _groups){
+      names.add(group.name);
+    }
+    return names;
   }
 }

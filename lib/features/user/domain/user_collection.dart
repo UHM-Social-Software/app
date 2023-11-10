@@ -71,4 +71,12 @@ class UserCollection{
   void addGroup(String userID, String groupID){
     _users.firstWhere((userData) => userData.id == userID).groups.add(groupID);
   }
+
+  List<String> getNames() {
+    List<String> names = [];
+    for(User user in _users){
+      names.add(user.name);
+    }
+    return names;
+  }
 }

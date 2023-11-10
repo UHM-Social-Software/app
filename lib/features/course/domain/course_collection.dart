@@ -19,4 +19,12 @@ class CourseCollection {
   List<String> getStudentIDs(String courseName){
     return _courses.firstWhere((classData) => classData.name == courseName).students;
   }
+
+  List<String> getNames() {
+    List<String> names = [];
+    for(Course course in _courses){
+      names.add(course.name);
+    }
+    return names;
+  }
 }

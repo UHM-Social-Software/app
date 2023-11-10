@@ -61,7 +61,7 @@ class MyApp extends ConsumerWidget {
               case ProfileView.routeName:
                 return ProfileView();
               case ExploreView.routeName:
-                return const ExploreView();
+                return ExploreView();
               /*case MessagesView.routeName:
                 return MessagesView();*/
               case MessagingScreen.routeName:
