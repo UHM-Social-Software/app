@@ -1,12 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:app/features/group/domain/group.dart';
 import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/user/domain/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
+import '../../../repositories/add_data.dart';
+import '../../../utils.dart';
 import '../../all_data_provider.dart';
 import '../../global_snackbar.dart';
 import '../../user/domain/user_collection.dart';
@@ -74,7 +79,13 @@ class CreateGroup extends ConsumerWidget {
       );
     }
 
-    void createPressed() {
+    Uint8List? _image;
+
+    void selectImage() async {
+      _image = await pickImage(ImageSource.gallery);
+    }
+
+    Future<void> createPressed() async {
       int numGroups = groupCollection.size();
       String id = 'group-${(numGroups + 1).toString().padLeft(3, '0')}';
       Group group = Group(
@@ -87,6 +98,7 @@ class CreateGroup extends ConsumerWidget {
       GroupDatabase groupDatabase = ref.watch(groupDatabaseProvider);
       groupDatabase.setGroup(group);
       addGroupToCurrentUserGroups(group);
+      String resp = await StoreData().saveGroupImage(file: _image!, group: group, ref: ref);
       Navigator.pushReplacementNamed(context, MyGroups.routeName);
     }
 
@@ -155,9 +167,7 @@ class CreateGroup extends ConsumerWidget {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         child: MaterialButton(
-                          onPressed: () {
-                            //not implemented yet
-                          },
+                          onPressed: selectImage,
                           child: const Text('Upload Club/Group Image',
                               style: TextStyle(
                                   color: Colors.white,
