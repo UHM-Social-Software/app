@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:app/features/group/domain/group.dart';
 import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/user/domain/user.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +42,6 @@ class CreateGroup extends ConsumerWidget {
           context: context,
           groups: allData.groups,
           users: allData.users,
-          currentUserID: allData.currentUserID,
           ref: ref,
         ),
         loading: () => const AGCLoading(),
@@ -50,9 +50,11 @@ class CreateGroup extends ConsumerWidget {
 
   Widget _build(
       {required BuildContext context,
-        required List<Group> groups, required List<User> users, required String currentUserID, required WidgetRef ref}) {
+        required List<Group> groups, required List<User> users, required WidgetRef ref}) {
     final groupCollection = GroupCollection(groups);
     final userCollection = UserCollection(users);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
 
     void addGroupToCurrentUserGroups(Group group){
       List<String> updatedGroups = [];

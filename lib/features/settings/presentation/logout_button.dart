@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../repositories/firestore/firestore_providers.dart';
 import '../../authentication/presentation/signin_view2.dart';
 
 /// Displays a button to return to the signin page.
@@ -24,6 +26,8 @@ class LogoutButton extends ConsumerWidget {
           ),
           child: MaterialButton(
             onPressed: () {
+              final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
+              instance.signOut();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SignInView2()),

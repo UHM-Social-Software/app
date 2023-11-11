@@ -16,13 +16,11 @@ class AllData {
   AllData(
       {required this.users,
       required this.courses,
-      required this.groups,
-      required this.currentUserID});
+      required this.groups});
 
   final List<User> users;
   final List<Course> courses;
   final List<Group> groups;
-  final String currentUserID;
 }
 
 @riverpod
@@ -30,10 +28,8 @@ Future<AllData> allData(AllDataRef ref) async {
   final courses = ref.watch(coursesProvider.future);
   final groups = ref.watch(groupsProvider.future);
   final users = ref.watch(usersProvider.future);
-  final currentUserID = ref.watch(currentUserIDProvider);
   return AllData(
       courses: await courses,
       groups: await groups,
-      users: await users,
-      currentUserID: currentUserID);
+      users: await users);
 }

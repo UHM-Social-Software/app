@@ -1,5 +1,6 @@
 import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/group/presentation/edit_group_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
@@ -23,7 +24,6 @@ class MyGroups extends ConsumerWidget {
         data: (allData) => _build(
               context: context,
               groups: allData.groups,
-              currentUserID: allData.currentUserID,
               users: allData.users,
             ),
         loading: () => const AGCLoading(),
@@ -33,10 +33,10 @@ class MyGroups extends ConsumerWidget {
   Widget _build(
       {required BuildContext context,
       required List<Group> groups,
-      required String currentUserID,
       required List<User> users}) {
     final groupCollection = GroupCollection(groups);
-
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
     List<String> groupIDs =
         groupCollection.getMyGroupIDs(currentUserID);
     return Scaffold(

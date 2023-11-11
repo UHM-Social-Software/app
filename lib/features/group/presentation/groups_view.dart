@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +23,6 @@ class GroupsView extends ConsumerWidget {
     return asyncAllData.when(
         data: (allData) => _build(
           context: context,
-          currentUserID: allData.currentUserID,
           users: allData.users,
         ),
         loading: () => const AGCLoading(),
@@ -31,9 +31,10 @@ class GroupsView extends ConsumerWidget {
 
   Widget _build(
       {required BuildContext context,
-        required String currentUserID,
         required List<User> users}) {
     final userCollection = UserCollection(users);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
     List<String> groupIDs = userCollection.getUserGroups(currentUserID);
 
     return Scaffold(

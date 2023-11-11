@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,7 +24,6 @@ class ProfilePhotoButton extends ConsumerWidget {
     return asyncAllData.when(
         data: (allData) => _build(
           context: context,
-          currentUserID: allData.currentUserID,
           users: allData.users,
           ref: ref,
         ),
@@ -33,17 +33,18 @@ class ProfilePhotoButton extends ConsumerWidget {
 
   Widget _build({
     required BuildContext context,
-    required String currentUserID,
     required List<User> users, required WidgetRef ref,
   }) {
     final userCollection = UserCollection(users);
-    User currentUser = userCollection.getUser(currentUserID);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
+    User user = userCollection.getUser(currentUserID);
 
     Uint8List? _image;
 
     void selectImage() async {
       _image = await pickImage(ImageSource.gallery);
-      String resp = await StoreData().saveUserImage(file: _image!, user: currentUser, ref: ref);
+      String resp = await StoreData().saveUserImage(file: _image!, user: user, ref: ref);
     }
 
     return Row(

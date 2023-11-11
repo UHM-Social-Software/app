@@ -1,5 +1,6 @@
 import 'package:app/features/group/domain/groups_collection.dart';
 import 'package:app/features/user/domain/user_collection.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,7 +29,6 @@ class GroupPage extends ConsumerWidget {
     return asyncAllData.when(
         data: (allData) => _build(
           context: context,
-          currentUserID: allData.currentUserID,
           users: allData.users,
           groups: allData.groups,
           ref: ref,
@@ -39,11 +39,12 @@ class GroupPage extends ConsumerWidget {
 
   Widget _build(
       {required BuildContext context,
-        required List<User> users,
-        required String currentUserID, required List<Group> groups, required WidgetRef ref}) {
+        required List<User> users, required List<Group> groups, required WidgetRef ref}) {
     final groupCollection = GroupCollection(groups);
     final userCollection = UserCollection(users);
     Group group = groupCollection.getGroup(groupID);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
 
     void joinGroup(){
       List<String> newMembership = [];

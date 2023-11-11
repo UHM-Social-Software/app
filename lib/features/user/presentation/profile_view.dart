@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,7 +42,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     return asyncAllData.when(
         data: (allData) => _build(
             context: context,
-            currentUserID: allData.currentUserID,
             users: allData.users),
         loading: () => const AGCLoading(),
         error: (error, st) => AGCError(error.toString(), st.toString()));
@@ -49,9 +49,10 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
   Widget _build({
     required BuildContext context,
-    required String currentUserID,
     required List<User> users,
   }) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
     final userCollection = UserCollection(users);
     User user = userCollection.getUser(currentUserID);
     return Scaffold(

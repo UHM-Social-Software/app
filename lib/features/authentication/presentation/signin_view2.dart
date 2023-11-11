@@ -1,12 +1,15 @@
 import 'package:app/features/user/domain/user_collection.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' hide ForgotPasswordView;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../agc_error.dart';
 import '../../../agc_loading.dart';
+import '../../../repositories/firestore/firestore_providers.dart';
 import '../../all_data_provider.dart';
 import '../../home/presentation/home_view.dart';
+import '../../user/data/user_providers.dart';
 import '../../user/domain/user.dart';
 import '../../user/presentation/edit_user_controller.dart';
 import 'decorations.dart';
@@ -81,7 +84,7 @@ class SignInView2 extends ConsumerWidget {
                   email: email,
                   classes: [],
                   groups: [],
-                  imagePath: 'assets/images/user-001-profile.png',
+                  imagePath: 'assets/images/default_profile.png',
                   interests: []);
             }
             ref.read(editUserControllerProvider.notifier).updateUser(

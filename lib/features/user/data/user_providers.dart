@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../repositories/firestore/firestore_providers.dart';
@@ -22,9 +23,8 @@ final userDBProvider = Provider<UserDB>((ref) {
 @riverpod
 String currentUserID(CurrentUserIDRef ref) {
   final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
-  print(instance.currentUser?.uid);
-  return instance.currentUser!.uid;
-  //return 'user-001';
+  String currentID = instance.currentUser?.uid ?? "user-002";
+  return currentID;
 }
 
 /*

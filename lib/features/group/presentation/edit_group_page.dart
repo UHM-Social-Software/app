@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:app/features/home/presentation/home_view.dart';
 import 'package:app/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +42,6 @@ class EditGroup extends ConsumerWidget {
           context: context,
           groups: allData.groups,
           users: allData.users,
-          currentUserID: allData.currentUserID,
           ref: ref,
         ),
         loading: () => const AGCLoading(),
@@ -51,13 +51,15 @@ class EditGroup extends ConsumerWidget {
   Widget _build(
       {required BuildContext context,
         required List<Group> groups,
-        required List<User> users, required String currentUserID, required WidgetRef ref}
+        required List<User> users, required WidgetRef ref}
   ) {
     final userCollection = UserCollection(users);
     final groupCollection = GroupCollection(groups);
     Group group = groupCollection.getGroup(groupID);
     List<String> memberIDs = groupCollection.getMembers(groupID);
     List<String> memberNames = userCollection.getUserNames(memberIDs);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
 
     Uint8List? _image;
 

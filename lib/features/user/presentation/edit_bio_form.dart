@@ -1,4 +1,5 @@
 import 'package:app/features/user/domain/user_collection.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,6 @@ class EditBioForm extends ConsumerWidget {
     return asyncAllData.when(
         data: (allData) => _build(
             context: context,
-            currentUserID: allData.currentUserID,
             users: allData.users,
           ref: ref,
         ),
@@ -34,9 +34,10 @@ class EditBioForm extends ConsumerWidget {
 
   Widget _build({
     required BuildContext context,
-    required String currentUserID,
     required List<User> users, required WidgetRef ref,
   }) {
+    final user = FirebaseAuth.instance.currentUser;
+    final currentUserID = user!.uid;
     final userCollection = UserCollection(users);
     User currentUser = userCollection.getUser(currentUserID);
 

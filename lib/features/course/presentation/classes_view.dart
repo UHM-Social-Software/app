@@ -1,6 +1,7 @@
 import 'package:app/features/course/presentation/class_bar.dart';
 import 'package:app/features/user/domain/user.dart';
 import 'package:app/features/user/domain/user_collection.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../agc_error.dart';
@@ -22,15 +23,16 @@ class ClassesView extends ConsumerWidget {
         data: (allData) => _build(
           context: context,
           users: allData.users,
-          currentUserID: allData.currentUserID,
         ),
         loading: () => const AGCLoading(),
         error: (error, st) => AGCError(error.toString(), st.toString()));
   }
 
   Widget _build(
-      {required BuildContext context, required String currentUserID, required List<User> users}) {
+      {required BuildContext context, required List<User> users}) {
     final userCollection = UserCollection(users);
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUserID = currentUser!.uid;
     User user = userCollection.getUser(currentUserID);
     List<String> classNames = user.classes;
 
