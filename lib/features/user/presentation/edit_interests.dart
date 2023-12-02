@@ -74,10 +74,12 @@ class EditInterests extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  ...?interests?.map((interest) => _InterestBar(interestName: interest, userCollection: userCollection, currentUserID: currentUserID))
-                ],
+              Flexible(
+                child: Column(
+                  children: [
+                    ...?interests?.map((interest) => _InterestBar(interestName: interest, userCollection: userCollection, currentUserID: currentUserID))
+                  ],
+                ),
               ),
             ],
           ),
@@ -85,67 +87,73 @@ class EditInterests extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        height: 45,
-                        width: 375,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: FormBuilderTextField(
-                          key: _interestsFormKey,
-                          name: 'bio',
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(10),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+              Flexible(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            alignment: Alignment.topLeft,
+                            height: 45,
+                            width: 375,
+                            decoration: const BoxDecoration(
+                              color: Color.fromRGBO(38, 95, 70, 1.0),
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                            child: FormBuilderTextField(
+                              key: _interestsFormKey,
+                              name: 'bio',
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                                ),
+                                filled: true,
+                                fillColor: const Color.fromRGBO(38, 95, 70, 1.0),
+                                hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
+                                hintText: "New interest",
+                              ),
                             ),
-                            filled: true,
-                            fillColor: const Color.fromRGBO(38, 95, 70, 1.0),
-                            hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                            hintText: "New interest",
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 45,
-                        width: 375,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(38, 95, 70, 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 45,
+                            width: 375,
+                            decoration: const BoxDecoration(
+                              color: Color.fromRGBO(38, 95, 70, 1.0),
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                            ),
+                            child: MaterialButton(
+                              onPressed: () {
+                                addInterest();
+                                // Navigator.pushReplacementNamed(context, HomeView.routeName);
+                              },
+                              child: const Text('Add',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold, fontSize: 20)),
+                            ),
+                          ),
                         ),
-                        child: MaterialButton(
-                          onPressed: () {
-                            addInterest();
-                            // Navigator.pushReplacementNamed(context, HomeView.routeName);
-                          },
-                          child: const Text('Add',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold, fontSize: 20)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),

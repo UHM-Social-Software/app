@@ -40,10 +40,12 @@ class GroupsViewerPage extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
-              ],
+            Flexible(
+              child: Column(
+                children: [
+                  ...groupIDs.map((groupID) => GroupBar(groupID: groupID)),
+                ],
+              ),
             ),
           ],
         ),

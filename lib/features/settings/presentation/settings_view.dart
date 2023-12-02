@@ -23,23 +23,27 @@ class SettingsView extends ConsumerWidget {
         children: [
           const SizedBox(height: 20.0),
           const LogoutButton(),
-          SizedBox(
-            height: 696,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 43.0),
-                  const ProfilePhotoButton(),
-                  const SizedBox(height: 20.0),
-                  EditBioForm(),
-                  const SizedBox(height: 30.0),
-                  EditInterests(),
-                  const SizedBox(height: 30.0),
-                  const CreateGroupButton(),
-                  const SizedBox(height: 10.0,),
-                  const MyGroupsButton(),
-                ],
-              )
+          Flexible(
+            child: SizedBox(
+              height: 696,
+              child: SingleChildScrollView(
+                child: Flexible(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20.0),
+                      const ProfilePhotoButton(),
+                      const SizedBox(height: 20.0),
+                      EditBioForm(),
+                      const SizedBox(height: 30.0),
+                      EditInterests(),
+                      const SizedBox(height: 30.0),
+                      const CreateGroupButton(),
+                      const SizedBox(height: 10.0,),
+                      const MyGroupsButton(),
+                    ],
+                  ),
+                )
+              ),
             ),
           ),
         ],

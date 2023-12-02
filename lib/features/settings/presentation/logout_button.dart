@@ -16,27 +16,29 @@ class LogoutButton extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          alignment: Alignment.center,
-          height: 55,
-          width: 375,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(38, 95, 70, 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          child: MaterialButton(
-            onPressed: () {
-              final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
-              instance.signOut();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignInView2()),
-              );
-            },
-            child: const Text('Logout',
-                style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold, fontSize: 30)),
+        Flexible(
+          child: Container(
+            alignment: Alignment.center,
+            height: 55,
+            width: 375,
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(38, 95, 70, 1.0),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+            child: MaterialButton(
+              onPressed: () {
+                final FirebaseAuth instance = ref.watch(firebaseAuthProvider);
+                instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInView2()),
+                );
+              },
+              child: const Text('Logout',
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold, fontSize: 30)),
+            ),
           ),
         ),
       ],

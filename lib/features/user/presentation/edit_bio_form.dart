@@ -67,33 +67,35 @@ class EditBioForm extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              alignment: Alignment.topLeft,
-              height: 100,
-              width: 375,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(38, 95, 70, 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              child: FormBuilderTextField(
-                key: _bioFormKey,
-                maxLines: 3,
-                minLines: 2,
-                name: 'bio',
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(10),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+            Flexible(
+              child: Container(
+                alignment: Alignment.topLeft,
+                height: 100,
+                width: 375,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(38, 95, 70, 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                child: FormBuilderTextField(
+                  key: _bioFormKey,
+                  maxLines: 3,
+                  minLines: 2,
+                  name: 'bio',
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(10),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromRGBO(38, 95, 70, 1.0),
+                    hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
+                    hintText: userCollection.getBio(currentUserID),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
-                  ),
-                  filled: true,
-                  fillColor: const Color.fromRGBO(38, 95, 70, 1.0),
-                  hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
-                  hintText: userCollection.getBio(currentUserID),
                 ),
               ),
             ),
@@ -104,23 +106,25 @@ class EditBioForm extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              alignment: Alignment.center,
-              height: 45,
-              width: 375,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(38, 95, 70, 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              child: MaterialButton(
-                onPressed: () {
-                  updateBio();
-                  // Navigator.pushReplacementNamed(context, HomeView.routeName);
-                },
-                child: const Text('Save New Bio',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold, fontSize: 20)),
+            Flexible(
+              child: Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: 375,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(38, 95, 70, 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                child: MaterialButton(
+                  onPressed: () {
+                    updateBio();
+                    // Navigator.pushReplacementNamed(context, HomeView.routeName);
+                  },
+                  child: const Text('Save New Bio',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold, fontSize: 20)),
+                ),
               ),
             ),
           ],

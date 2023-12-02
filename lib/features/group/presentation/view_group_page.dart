@@ -121,21 +121,23 @@ class GroupPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: 55,
-                      width: 375,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(38, 95, 70, 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 55,
+                        width: 375,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(38, 95, 70, 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Text(group.name,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 26)),
                       ),
-                      child: Text(group.name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -144,26 +146,28 @@ class GroupPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      alignment: Alignment.topLeft,
-                      height: 120,
-                      width: 375,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(38, 95, 70, 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        alignment: Alignment.topLeft,
+                        height: 120,
+                        width: 375,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(38, 95, 70, 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(group.description,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22)),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          Text(group.description,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 22)),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -172,41 +176,43 @@ class GroupPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      alignment: Alignment.topLeft,
-                      height: 120,
-                      width: 375,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(38, 95, 70, 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(3),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Upcoming Events:',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 26)),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(group.upcomingEvents,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20)),
-                          ],
+                Flexible(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        alignment: Alignment.topLeft,
+                        height: 120,
+                        width: 375,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(38, 95, 70, 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(3),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Upcoming Events:',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 26)),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(group.upcomingEvents,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -215,33 +221,35 @@ class GroupPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 55,
-                  width: 375,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(38, 95, 70, 1.0),
-                    border: Border.all(color: Colors.white),
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  ),
-                  child: MaterialButton(
-                    onPressed: () {
-                      if(!groupCollection.getMembers(groupID).contains(currentUserID)){
-                        joinGroup();
-                        // Navigator.pop(context);
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("You're already in this group!"),
-                          duration: Duration(seconds: 5),
-                        ));
-                      }
-                    },
-                    child: const Text('Join / Request Invite',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26)),
+                Flexible(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    width: 375,
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(38, 95, 70, 1.0),
+                      border: Border.all(color: Colors.white),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {
+                        if(!groupCollection.getMembers(groupID).contains(currentUserID)){
+                          joinGroup();
+                          // Navigator.pop(context);
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("You're already in this group!"),
+                            duration: Duration(seconds: 5),
+                          ));
+                        }
+                      },
+                      child: const Text('Join / Request Invite',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26)),
+                    ),
                   ),
                 ),
               ],

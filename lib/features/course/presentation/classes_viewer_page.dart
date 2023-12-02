@@ -41,10 +41,12 @@ class ClassesViewerPage extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                ...classNames.map((className) => ClassBar(className: className))
-              ],
+            Flexible(
+              child: Column(
+                children: [
+                  ...classNames.map((className) => ClassBar(className: className))
+                ],
+              ),
             ),
           ],
         ),
