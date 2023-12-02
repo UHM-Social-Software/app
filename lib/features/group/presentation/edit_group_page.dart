@@ -137,6 +137,8 @@ class EditGroup extends ConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: FormBuilderTextField(
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 20),
                         key: _descriptionFieldKey,
                         maxLines: 3,
                         minLines: 2,
@@ -177,6 +179,8 @@ class EditGroup extends ConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: FormBuilderTextField(
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 20),
                         key: _eventsFieldKey,
                         maxLines: 3,
                         minLines: 2,

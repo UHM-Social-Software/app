@@ -129,6 +129,8 @@ class CreateGroup extends ConsumerWidget {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         child: FormBuilderTextField(
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
+                              fontSize: 20),
                           key: _nameFieldKey,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(10),
@@ -193,6 +195,8 @@ class CreateGroup extends ConsumerWidget {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         child: FormBuilderTextField(
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 20),
                           key: _descriptionFieldKey,
                           maxLines: 3,
                           minLines: 2,
@@ -233,6 +237,8 @@ class CreateGroup extends ConsumerWidget {
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         child: FormBuilderTextField(
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 20),
                           key: _eventsFieldKey,
                           maxLines: 3,
                           minLines: 2,

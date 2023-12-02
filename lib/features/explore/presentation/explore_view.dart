@@ -93,6 +93,7 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: TextField(
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.0)),
