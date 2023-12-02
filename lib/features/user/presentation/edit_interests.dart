@@ -62,7 +62,6 @@ class EditInterests extends ConsumerWidget {
       ref.read(editUserControllerProvider.notifier).updateUser(
         user: updatedUser,
         onSuccess: () {
-          GlobalSnackBar.show('Edited Interests!');
         },
       );
     }
@@ -200,7 +199,6 @@ class _InterestBar extends ConsumerWidget {
       ref.read(editUserControllerProvider.notifier).updateUser(
         user: updatedUser,
         onSuccess: () {
-          GlobalSnackBar.show('Removed Interest!');
         },
       );
       //Navigator.pushReplacementNamed(context, HomeView.routeName);
